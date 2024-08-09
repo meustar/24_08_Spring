@@ -79,6 +79,18 @@ public class UsrArticleController {
 		Article article = writeArticle(title, body);
 		return article;
 	}
+	@RequestMapping("/usr/article/getArticle")
+	@ResponseBody
+	public Object getArticle(int id) {
+		
+		Article article = getArticleById(id);
+
+		if (article == null) {
+			return id + "번 글은 없습니다.";
+		}
+		
+		return article;
+	}
 
 	@RequestMapping("/usr/article/getArticles")
 	@ResponseBody
