@@ -1,66 +1,83 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Controller
 public class UsrHomeController {
 	
-	private int count;
+	// 여러가지 리턴타입
 	
-	public UsrHomeController() {
-		count = 0;
-	}
-	
-	@RequestMapping("/usr/home/main1")
+
+	@RequestMapping("/usr/home/getInt")
 	@ResponseBody
-	public String showMain() {
-		return "안뇽";
+	public int getInt() {
+
+		return 1;
 	}
 	
-	@RequestMapping("/usr/home/main2")
+	@RequestMapping("/usr/home/getString")
 	@ResponseBody
-	public String showMain2() {
-		return "잘가ㅏ";
+	public String getString() {
+
+		return "abc";
 	}
 	
-	@RequestMapping("/usr/home/main3")
+	@RequestMapping("/usr/home/getBoolean")
 	@ResponseBody
-	public int showMain3() {
-		return 1 + 2;
+	public boolean getBoolean() {
+
+		return true;
 	}
 	
-//	@RequestMapping("/usr/home/main4")
-//	@ResponseBody
-//	public int showMain4() {
-//		return count++;
-//	}
-	@RequestMapping("/usr/home/getCount")
+	@RequestMapping("/usr/home/getDouble")
 	@ResponseBody
-	public int getCount() {
-		return count++;
+	public double getDouble() {
+
+		return 3.14;
 	}
 	
-//	@RequestMapping("/usr/home/main5")
-//	@ResponseBody
-//	public String showMain5() {
-//		count = 0;
-//		return "count 값 0 으로 초기화";
-//	}
-	
-	@RequestMapping("/usr/home/setCount")
+	@RequestMapping("/usr/home/getMap")
 	@ResponseBody
-	public String setCount() {
-		count = 0;
-		return "count 값 0 으로 초기화";
+	public Map<String, Object> getMap() {
+		Map<String, Object> map = new HashMap<>();
+		map.put("철수나이", 11);
+		map.put("영희나이", 10);
+		return map;
+	}
+	@RequestMapping("/usr/home/getList")
+	@ResponseBody
+	public List<String> getList() {
+		List<String> list = new ArrayList<>();
+		list.add("철수나이");
+		list.add("영희나이");
+		return list;
+	}
+	@RequestMapping("/usr/home/getArticle")
+	@ResponseBody
+	public Article getArticle() {
+		Article article = new Article(1,"제목1", "내용1");
+		
+		return article;
 	}
 	
-	@RequestMapping("/usr/home/setCountValue")
-	@ResponseBody
-	public String setCountValue(int value) {
-		count = value;
-		return "count 값 value 으로 초기화";
-//		http://localhost:8080/usr/home/setCountValue?value=22
-	}
+}
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+class Article {
+	int id;
+	String title;
+	String body;
 }
