@@ -1,62 +1,34 @@
 package com.example.demo.repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Component;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.example.demo.vo.Article;
 
-@Component
-public class ArticleRepository {
-	private int lastArticleId;
+@Mapper
+public interface ArticleRepository {
 
-	public List<Article> articles;
+	@Insert("INSERT INTO article SET regDate = NOW(), updateDate = NOW(), title = #{title}, `body` = #{body}")
+	public void writeArticle(String title, String body);
 
-	public ArticleRepository() {
-		lastArticleId = 0;
-		articles = new ArrayList<>();
-	}
+	@Delete("DELETE FROM article WHERE id = #{id}")
+	public void deleteArticle(int id);
 
-	public Article writeArticle(String title, String body) {
+	@Update("UPDATE article SET updateDate = NOW(), title = #{title}, `body` = #{body} WHERE id = #{id}")
+	public void modifyArticle(int id, String title, String body);
 
-		int id = lastArticleId + 1;
+	@Select("SELECT * FROM article WHERE id = #{id}")
+	public Article getArticleById(int id);
 
-		Article article = new Article(id, title, body);
+	@Select("SELECT * FROM article ORDER BY id DESC")
+	public List<Article> getArticles();
 
-		articles.add(article);
+	@Select("SELECT LAST_INSERT_ID();")
+	public int getLastInsertId();
 
-		lastArticleId++;
-
-		return article;
-
-	}
-
-	public void deleteArticle(int id) {
-		Article article = getArticleById(id);
-		articles.remove(article);
-
-	}
-
-	public void modifyArticle(int id, String title, String body) {
-
-		Article article = getArticleById(id);
-		article.setTitle(title);
-		article.setBody(body);
-
-	}
-
-	public Article getArticleById(int id) {
-		for (Article article : articles) {
-			if (article.getId() == id) {
-				return article;
-			}
-		}
-
-		return null;
-	}
-	
-	public List<Article> getArticles() {
-		return articles;
-	}
 }

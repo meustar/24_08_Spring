@@ -10,7 +10,6 @@ CREATE TABLE article(
       `body` TEXT NOT NULL
 );
 
-
 ## 게시글 테스트 데이터 생성
 INSERT INTO article
 SET regDate = NOW(),
@@ -34,10 +33,8 @@ SELECT *
 FROM article
 ORDER BY id DESC;
 
-
 ###############################################################################
 
-SELECT CEILING(RAND() * 3);
 
 ## 게시글 테스트 데이터 대량 생성
 INSERT INTO article
