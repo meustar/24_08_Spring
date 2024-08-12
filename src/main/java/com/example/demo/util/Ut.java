@@ -31,7 +31,7 @@ public class Ut {
 	}
 
 	// 가변인자 활용하기.
-	public static Object f(String format, Object... args) {
+	public static String f(String format, Object... args) {
 		
 		return String.format(format, args);
 	}
