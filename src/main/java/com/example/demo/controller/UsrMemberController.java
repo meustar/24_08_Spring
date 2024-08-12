@@ -41,19 +41,15 @@ public class UsrMemberController {
 			return ResultData.from("F-6", Ut.f("%d(을)를 제대로 입력해주세요.", email));
 		}
 		
-		int id = memberService.doJoin(loginId, loginPw, name, nickname, cellphoneNum, email);
+		ResultData doJoinRd = memberService.doJoin(loginId, loginPw, name, nickname, cellphoneNum, email);
 		
-		if (id == -1) {
-			return ResultData.from("F-7", Ut.f("%d(은)는 이미 사용중인 아이디 입니다.", loginId));
+		if (doJoinRd.isFail()) {
+			return doJoinRd;
 		}
 		
-		if (id == -2) {
-			return ResultData.from("F-8", Ut.f("이미 사용중인 이름(%s)과 이메일(%s) 입니다.",  name, email));
-		}
+		Member member = memberService.getMemberById((int)doJoinRd.getData1());
 		
-		Object member = memberService.getMemberById(id);
-		
-		return (ResultData) member;
+		return ResultData.newData(doJoinRd, member);
 		
 	}
 
