@@ -30,4 +30,10 @@ public class Ut {
 		return false;
 	}
 
+	// 가변인자 활용하기.
+	public static Object f(String format, Object... args) {
+		
+		return String.format(format, args);
+	}
+
 }
