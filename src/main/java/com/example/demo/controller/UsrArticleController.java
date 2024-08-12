@@ -80,7 +80,7 @@ public class UsrArticleController {
 	@ResponseBody
 	public List<Article> getArticles() {
 
-		return articleService.articles;
+		return articleService.getArticles();
 	}
 
 }
