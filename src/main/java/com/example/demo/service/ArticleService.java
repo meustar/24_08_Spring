@@ -53,7 +53,7 @@ public class ArticleService {
 		return articleRepository.getArticles();
 	}
 
-	public ResultData loginedMemberConModifyRd(int loginedMemberId, Article article) {
+	public ResultData loginedMemberCanModify(int loginedMemberId, Article article) {
 
 		if (article.getMemberId() != loginedMemberId) {
 			return ResultData.from("F-2", Ut.f("%d번 게시글에 대한 권한이 없습니다", article.getId()));

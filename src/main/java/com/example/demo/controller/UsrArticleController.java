@@ -58,10 +58,10 @@ public class UsrArticleController {
 			return ResultData.from("F-1", Ut.f("%d번 게시글은 없습니다.", id));
 		}
 
-		ResultData loginedMemberConModifyRd = articleService.loginedMemberConModifyRd(loginedMemberId, article);
+		ResultData loginedMemberCanModifyRd = articleService.loginedMemberCanModify(loginedMemberId, article);
 		
-		if (loginedMemberConModifyRd.isFail()) {
-			return loginedMemberConModifyRd;
+		if (loginedMemberCanModifyRd.isFail()) {
+			return loginedMemberCanModifyRd;
 		}
 		
 		// getter, setter 잘 알아보자... ㅠㅠ
@@ -71,7 +71,8 @@ public class UsrArticleController {
 		
 		article = articleService.getArticleById(id);
 
-		return ResultData.from(loginedMemberConModifyRd.getResultCode(), loginedMemberConModifyRd.getMsg(),"수정 된 게시글", article);
+		return ResultData.from(loginedMemberCanModifyRd.getResultCode(), loginedMemberCanModifyRd.getMsg(),"수정 된 게시글", 
+				article);
 	}
 
 	@RequestMapping("/usr/article/doDelete")
@@ -147,7 +148,7 @@ public class UsrArticleController {
 		
 		model.addAttribute("articles", articles);
 
-		return "/usr/article/list";
+		return "usr/article/list";
 	}
 
 }

@@ -20,7 +20,6 @@ public class MemberService {
 
 	public ResultData<Integer> doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNum,
 			String email) {
-		memberRepository.doJoin(loginId, loginPw, name, nickname, cellphoneNum, email);
 
 		Member existsMember = getMemberByLoginId(loginId);
 

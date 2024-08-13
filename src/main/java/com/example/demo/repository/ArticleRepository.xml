@@ -4,7 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.repository.ArticleRepository">
 	<update id="modifyArticle">
-		UPDATE article SET
+		UPDATE article
 		<set>
 			<if test="title != null and title != ''">title = #{title},</if>
 			<if test="body != null and body != ''">`body` = #{body},</if>
