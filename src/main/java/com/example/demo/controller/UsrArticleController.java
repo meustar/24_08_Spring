@@ -35,6 +35,7 @@ public class UsrArticleController {
 		return ResultData.from("S-1", Ut.f("%d번 게시글 입니다.", id), article);
 	}
 
+	// 로그인 체크 -> 유무 체크 -> 권한 체크 -> 수정
 	@RequestMapping("/usr/article/doModify")
 	@ResponseBody
 	public ResultData<Article> doModify(HttpSession httpSession, int id, String title, String body) {
@@ -56,6 +57,12 @@ public class UsrArticleController {
 			return ResultData.from("F-1", Ut.f("%d번 게시글은 없습니다.", id));
 		}
 
+		ResultData loginedMemberConModifyRd = articleService.loginedMemberConModifyRd(loginedMemberId, article);
+		
+		if (loginedMemberConModifyRd.isFail()) {
+			return loginedMemberConModifyRd;
+		}
+		
 		// getter, setter 잘 알아보자... ㅠㅠ
 //		article.setTitle(title);
 //		article.setBody(body);
@@ -63,7 +70,7 @@ public class UsrArticleController {
 		
 		article = articleService.getArticleById(id);
 
-		return ResultData.from("S-1", Ut.f("%d번 게시글을 수정했습니다.", id), article);
+		return ResultData.from(loginedMemberConModifyRd.getResultCode(), loginedMemberConModifyRd.getMsg(), article);
 	}
 
 	@RequestMapping("/usr/article/doDelete")
@@ -86,6 +93,10 @@ public class UsrArticleController {
 
 		if (article == null) {
 			return ResultData.from("F-11", Ut.f("%d번 게시글은 없습니다.", id), id);
+		}
+		
+		if (article.getMemberId() != loginedMemberId) {
+			return ResultData.from("F-2", Ut.f("%d번 게시글에 대한 권한이 없습니다", id));
 		}
 
 		// (id - 1)로 인덱스를 사용해서 지우게 되면. 중간값의 인덱스를 지우면
