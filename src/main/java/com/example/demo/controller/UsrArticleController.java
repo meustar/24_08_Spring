@@ -23,8 +23,7 @@ public class UsrArticleController {
 	private ArticleService articleService;
 
 	// 액션 메서드, 컨트롤 메서드
-	@RequestMapping("/usr/article/getArticle")
-	@ResponseBody
+	@RequestMapping("/usr/article/detail")
 	public ResultData<Article> getArticle(int id) {
 
 		Article article = articleService.getArticleById(id);
