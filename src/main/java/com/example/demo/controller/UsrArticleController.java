@@ -15,7 +15,6 @@ import com.example.demo.vo.ResultData;
 import com.example.demo.vo.Rq;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class UsrArticleController {
@@ -28,7 +27,7 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/detail")
 	public String showDetail(HttpServletRequest req, Model model, int id) {
 
-		Rq rq = new Rq(req);
+		Rq rq = (Rq) req.getAttribute("rq");
 		
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
@@ -43,9 +42,7 @@ public class UsrArticleController {
 	public ResultData<Article> doModify(HttpServletRequest req, int id, String title, String body) {
 		
 		
-		Rq rq = new Rq(req);
-		
-		
+		Rq rq = (Rq) req.getAttribute("rq");
 		
 		if (rq.isLogined() == false) {
 			return ResultData.from("F-A", "로그인 후 이용하실 수 있습니다.");
@@ -82,7 +79,7 @@ public class UsrArticleController {
 	@ResponseBody
 	public String doDelete(HttpServletRequest req, int id) {
 		
-		Rq rq = new Rq(req);
+		Rq rq = (Rq) req.getAttribute("rq");
 		
 		if (rq.isLogined() == false) {
 //			return ResultData.from("F-A", "로그인 후 이용하실 수 있습니다.");
@@ -112,16 +109,11 @@ public class UsrArticleController {
 
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
-	public ResultData<Article> doWrite(HttpSession httpSession, String title, String body) {
+	public ResultData<Article> doWrite(HttpServletRequest req, String title, String body) {
 		
-		boolean isLogined = false;
-		int loginedMemberId = 0;
+		Rq rq = (Rq) req.getAttribute("rq");
 		
-		if (httpSession.getAttribute("loginedMemberId") != null) {
-			isLogined = true;
-			loginedMemberId = (int) httpSession.getAttribute("loginedMemberId");
-		}
-		if (isLogined == false) {
+		if (rq.isLogined() == false) {
 			return ResultData.from("F-A", "로그인 후 이용하실 수 있습니다.");
 		}
 
@@ -133,7 +125,7 @@ public class UsrArticleController {
 		}
 		
 		
-		ResultData writeArticleRd = articleService.writeArticle(loginedMemberId, title, body);
+		ResultData writeArticleRd = articleService.writeArticle(rq.getLoginedMemberId(), title, body);
 		
 		int id  = (int) writeArticleRd.getData1();
 		
