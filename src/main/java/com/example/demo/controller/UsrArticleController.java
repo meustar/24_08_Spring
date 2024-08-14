@@ -43,10 +43,6 @@ public class UsrArticleController {
 		
 		
 		Rq rq = (Rq) req.getAttribute("rq");
-		
-		if (rq.isLogined() == false) {
-			return ResultData.from("F-A", "로그인 후 이용하실 수 있습니다.");
-		}// -1-
 
 		Article article = articleService.getArticleById(id);
 
@@ -80,11 +76,6 @@ public class UsrArticleController {
 	public String doDelete(HttpServletRequest req, int id) {
 		
 		Rq rq = (Rq) req.getAttribute("rq");
-		
-		if (rq.isLogined() == false) {
-//			return ResultData.from("F-A", "로그인 후 이용하실 수 있습니다.");
-			return Ut.jsReplace("F-A", "로그인 후 이용하세요", "../member/login");
-		}
 
 		// id가 있는지부터 알아야 함.
 		Article article = articleService.getArticleById(id);
@@ -112,10 +103,6 @@ public class UsrArticleController {
 	public ResultData<Article> doWrite(HttpServletRequest req, String title, String body) {
 		
 		Rq rq = (Rq) req.getAttribute("rq");
-		
-		if (rq.isLogined() == false) {
-			return ResultData.from("F-A", "로그인 후 이용하실 수 있습니다.");
-		}
 
 		if (Ut.isEmptyOrNull(title)) {
 			return ResultData.from("F-1", "제목을 입력해주세요.");
