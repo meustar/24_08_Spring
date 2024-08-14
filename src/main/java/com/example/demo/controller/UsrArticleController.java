@@ -24,15 +24,17 @@ public class UsrArticleController {
 
 	// 액션 메서드, 컨트롤 메서드
 	@RequestMapping("/usr/article/detail")
-	public ResultData<Article> getArticle(int id) {
+	public String showDetail(Model model, int id) {
 
 		Article article = articleService.getArticleById(id);
 
-		if (article == null) {
-			return ResultData.from("F-9", Ut.f("%d번 게시글은 없습니다.", id));
-		}
+//		if (article == null) {
+//			return ResultData.from("F-9", Ut.f("%d번 게시글은 없습니다.", id));
+//		}
 
-		return ResultData.from("S-1", Ut.f("%d번 게시글 입니다.", id), "게시글 1개", article);
+		model.addAttribute("article", article);
+		
+		return "usr/article/detail";
 	}
 
 	// 로그인 체크 -> 유무 체크 -> 권한 체크 -> 수정
