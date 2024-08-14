@@ -24,13 +24,17 @@ public class UsrArticleController {
 
 	// 액션 메서드, 컨트롤 메서드
 	@RequestMapping("/usr/article/detail")
-	public String showDetail(Model model, int id) {
+	public String showDetail(HttpSession httpSession, Model model, int id) {
 
-		Article article = articleService.getArticleById(id);
-
-//		if (article == null) {
-//			return ResultData.from("F-9", Ut.f("%d번 게시글은 없습니다.", id));
-//		}
+		boolean isLogined = false;
+		int loginedMemberId = 0;
+		
+		if (httpSession.getAttribute("loginedMemberId") != null) {
+			isLogined = true;
+			loginedMemberId = (int) httpSession.getAttribute("loginedMemberId");
+		}
+		
+		Article article = articleService.getForPrintArticle(loginedMemberId, id);
 
 		model.addAttribute("article", article);
 		
@@ -42,6 +46,7 @@ public class UsrArticleController {
 	@ResponseBody
 	public ResultData<Article> doModify(HttpSession httpSession, int id, String title, String body) {
 		
+		//-1- 로그인 체크
 		boolean isLogined = false;
 		int loginedMemberId = 0;
 		
@@ -51,7 +56,7 @@ public class UsrArticleController {
 		}
 		if (isLogined == false) {
 			return ResultData.from("F-A", "로그인 후 이용하실 수 있습니다.");
-		}
+		}// -1-
 
 		Article article = articleService.getArticleById(id);
 
@@ -59,7 +64,8 @@ public class UsrArticleController {
 			return ResultData.from("F-1", Ut.f("%d번 게시글은 없습니다.", id));
 		}
 
-		ResultData loginedMemberCanModifyRd = articleService.loginedMemberCanModify(loginedMemberId, article);
+		// -3- 권한 체크
+		ResultData loginedMemberCanModifyRd = articleService.userCanModify(loginedMemberId, article);
 		
 		if (loginedMemberCanModifyRd.isFail()) {
 			return loginedMemberCanModifyRd;
