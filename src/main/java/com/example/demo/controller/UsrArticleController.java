@@ -65,20 +65,23 @@ public class UsrArticleController {
 		}
 
 		// -3- 권한 체크
-		ResultData loginedMemberCanModifyRd = articleService.userCanModify(loginedMemberId, article);
+		ResultData userCanModifyRd = articleService.userCanModify(loginedMemberId, article);
 		
-		if (loginedMemberCanModifyRd.isFail()) {
-			return loginedMemberCanModifyRd;
+		if (userCanModifyRd.isFail()) {
+			return userCanModifyRd;
+		}
+		if (userCanModifyRd.isSuccess()) {
+			articleService.modifyArticle(id, title, body);
+			
 		}
 		
 		// getter, setter 잘 알아보자... ㅠㅠ
 //		article.setTitle(title);
 //		article.setBody(body);
-		articleService.modifyArticle(id, title, body);
 		
 		article = articleService.getArticleById(id);
 
-		return ResultData.from(loginedMemberCanModifyRd.getResultCode(), loginedMemberCanModifyRd.getMsg(),"수정 된 게시글", 
+		return ResultData.from(userCanModifyRd.getResultCode(), userCanModifyRd.getMsg(),"수정 된 게시글", 
 				article);
 	}
 
@@ -104,16 +107,17 @@ public class UsrArticleController {
 			return ResultData.from("F-11", Ut.f("%d번 게시글은 없습니다.", id),"입력한 id", id);
 		}
 		
-		if (article.getMemberId() != loginedMemberId) {
-			return ResultData.from("F-2", Ut.f("%d번 게시글에 대한 권한이 없습니다", id));
+		ResultData userCanDeleteRd = articleService.userCanDelete(loginedMemberId, article);
+		
+		if (userCanDeleteRd.isFail()) {
+			return userCanDeleteRd;
+		}
+		
+		if (userCanDeleteRd.isSuccess()) {
+			articleService.deleteArticle(id);
 		}
 
-		// (id - 1)로 인덱스를 사용해서 지우게 되면. 중간값의 인덱스를 지우면
-		// 그 뒷 열의 모든 인덱스가 망가져서 엉뚱한 글을 지우게 된다.
-//		articles.remove(article);
-		articleService.deleteArticle(id);
-
-		return ResultData.from("S-1", Ut.f("%d번 게시글을 삭제했습니다.", id),"입력한 id", id);
+		return ResultData.from(userCanDeleteRd.getResultCode(),userCanDeleteRd.getMsg(),"입력한 id", id);
 	}
 
 	@RequestMapping("/usr/article/doWrite")
