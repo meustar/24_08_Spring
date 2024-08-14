@@ -11,21 +11,18 @@
 				<tbody>
 					<tr>
 						<th>아이디</th>
-						<td style="text-align: center;">
-							<input name="loginId" autocomplete="off" type="text" placeholder="아이디를 입력해주세요. " />
-						</td>
+						<td style="text-align: center;"><input name="loginId" autocomplete="off" type="text" placeholder="아이디를 입력해" /></td>
+
 					</tr>
 					<tr>
 						<th>비밀번호</th>
-						<td style="text-align: center;">
-							<input name="loginPw" autocomplete="off" type="text" placeholder="비밀번호를 입력해주세요. " />
-						</td>
+						<td style="text-align: center;"><input name="loginPw" autocomplete="off" type="text" placeholder="비밀번호를 입력해" /></td>
+
 					</tr>
 					<tr>
 						<th></th>
-						<td style="text-align: center;">
-							<input type="submit" value="로그인" />
-						</td>
+						<td style="text-align: center;"><input type="submit" value="로그인" /></td>
+
 					</tr>
 				</tbody>
 			</table>

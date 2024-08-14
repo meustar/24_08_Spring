@@ -9,8 +9,9 @@ import com.example.demo.service.MemberService;
 import com.example.demo.util.Ut;
 import com.example.demo.vo.Member;
 import com.example.demo.vo.ResultData;
+import com.example.demo.vo.Rq;
 
-import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class UsrMemberController {
@@ -20,43 +21,26 @@ public class UsrMemberController {
 	
 	@RequestMapping("/usr/member/doLogout")
 	@ResponseBody
-	public ResultData<Member> doLogout(HttpSession httpSession) {
+	public String doLogout(HttpServletRequest req) {
 
-		boolean isLogined = false;
+		Rq rq = (Rq) req.getAttribute("rq");
 
-		if (httpSession.getAttribute("loginedMemberId") != null) {
-			isLogined = true;
-		}
-
-		if (!isLogined) {
-			return ResultData.from("F-A", "로그인 중이 아닙니다.");
-		}
-
-		httpSession.removeAttribute("loginedMemberId");
-
-		return ResultData.from("S-1", Ut.f("로그아웃"));
+		rq.logout();
+		
+		return Ut.jsReplace("S-1", Ut.f("로그아웃"), "/");
 	}
 	
 	@RequestMapping("/usr/member/login")
 	public String showLogin() {
-		return "/usr/home/main";
+		return "/usr/member/login";
 	}
 	
 	
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
-	public String doLogin(HttpSession httpSession, String loginId, String loginPw) {
+	public String doLogin(HttpServletRequest req, String loginId, String loginPw) {
 
-		// 로그인 정보 저장하기. (중복로그인 방지)
-		boolean isLogined = false;
-
-		if (httpSession.getAttribute("loginedMemberId") != null) {
-			isLogined = true;
-		}
-
-		if (isLogined) {
-			return Ut.jsHistoryBack("F-1", "이미 로그인 중입니다.");
-		}
+		Rq rq = (Rq) req.getAttribute("rq");
 
 		if (Ut.isEmptyOrNull(loginId)) {
 			return Ut.jsHistoryBack("F-2", "아이디를 입력하지 않았습니다.");
@@ -74,25 +58,15 @@ public class UsrMemberController {
 			return Ut.jsHistoryBack("F-4", Ut.f("비밀 번호가 틀립니다."));
 		}
 
-		httpSession.setAttribute("loginedMemberId", member.getId());
+		rq.login(member);
 
 		return Ut.jsReplace("S-1", Ut.f("%s님 환영합니다.", member.getNickname()), "/");
 	}
 
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
-	public ResultData<Member> doJoin(HttpSession httpSession, String loginId, String loginPw, String name,
+	public ResultData<Member> doJoin(HttpServletRequest req, String loginId, String loginPw, String name,
 			String nickname, String cellphoneNum, String email) {
-
-		boolean isLogined = false;
-
-		if (httpSession.getAttribute("loginedMemberId") != null) {
-			isLogined = true;
-		}
-
-		if (isLogined) {
-			return ResultData.from("F-A", "이미 로그인 중입니다.");
-		}
 
 		if (Ut.isEmptyOrNull(loginId)) {
 			return ResultData.from("F-1", Ut.f("%d(을)를 제대로 입력해주세요.", loginId));

@@ -52,6 +52,15 @@ public class ArticleService {
 		return article;
 	}
 
+	public Article getArticleById(int id) {
+
+		return articleRepository.getArticleById(id);
+	}
+
+	public List<Article> getArticles() {
+		return articleRepository.getArticles();
+	}
+
 	private void controlForPrintData(int loginedMemberId, Article article) {
 		if (article == null) {
 			return;
@@ -66,32 +75,18 @@ public class ArticleService {
 		
 	}
 
-	public Article getArticleById(int id) {
-
-		return articleRepository.getArticleById(id);
-	}
-
-	public List<Article> getArticles() {
-
-		return articleRepository.getArticles();
+	public ResultData userCanDelete(int loginedMemberId, Article article) {
+		if (article.getMemberId() != loginedMemberId) {
+			return ResultData.from("F-2", Ut.f("%d번 게시글에 대한 삭제 권한이 없습니다", article.getId()));
+		}
+		return ResultData.from("S-1", Ut.f("%d번 게시글을 삭제했습니다", article.getId()));
 	}
 
 	public ResultData userCanModify(int loginedMemberId, Article article) {
-
 		if (article.getMemberId() != loginedMemberId) {
-			return ResultData.from("F-2", Ut.f("%d번 게시글에 대한 권한이 없습니다", article.getId()));
-
+			return ResultData.from("F-2", Ut.f("%d번 게시글에 대한 수정 권한이 없습니다", article.getId()));
 		}
 		return ResultData.from("S-1", Ut.f("%d번 게시글을 수정했습니다", article.getId()), "수정된 게시글", article);
 	}
-
-	public ResultData userCanDelete(int loginedMemberId, Article article) {
-		
-		if (article.getMemberId() != loginedMemberId) {
-			return ResultData.from("F-2", Ut.f("%d번 게시글에 대한 권한이 없습니다", article.getId()));
-		}
-		return ResultData.from("S-1", Ut.f("%d번 게시글을 삭제 했습니다", article.getId()));
-	}
-
 
 }
