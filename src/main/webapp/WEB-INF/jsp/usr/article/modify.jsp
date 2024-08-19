@@ -8,7 +8,7 @@
 	<div class="mx-auto">
 		<form action="../article/doModify" method="POST">
 			<input type="hidden" name="id" value="${article.id}" />
-			<table border="1" cellspacing="0" cellpadding="5" style="width: 100%; border-collapse: collapse;">
+			<table class="table" border="1" cellspacing="0" cellpadding="5" style="width: 100%; border-collapse: collapse;">
 				<tbody>
 					<tr>
 						<th style="text-align: center;">ID</th>
@@ -29,28 +29,30 @@
 					<tr>
 						<th style="text-align: center;">Title</th>
 						<td style="text-align: center;"><input name="title" value="${article.title}" type="text" autocomplete="off"
-							placeholder="새 제목을 입력해" /></td>
+							placeholder="새 제목을 입력해" class="input input-bordered input-primary w-full max-w-xs input-sm "/></td>
 					</tr>
 					<tr>
 						<th style="text-align: center;">Body</th>
 						<td style="text-align: center;"><input name="body" value="${article.body}" type="text" autocomplete="off"
-							placeholder="새 내용을 입력해" /></td>
+							placeholder="새 내용을 입력해" class="input input-bordered input-primary w-full max-w-xs input-sm "/></td>
 					</tr>
 					<tr>
 						<th></th>
-						<td style="text-align: center;"><input type="submit" value="수정" /></td>
+						<td style="text-align: center;">
+							<button class="btn btn-primary">수정</button>
+						</td>
 					</tr>
 
 				</tbody>
 			</table>
 		</form>
 		<div class="btns">
-			<button type="button" onclick="history.back()">뒤로가기</button>
+			<button class="btn" type="button" onclick="history.back()">뒤로가기</button>
 			<c:if test="${article.userCanModify }">
-				<a href="../article/modify?id=${article.id }">수정</a>
+				<a class="btn" href="../article/modify?id=${article.id }">수정</a>
 			</c:if>
 			<c:if test="${article.userCanDelete }">
-				<a href="../article/doDelete?id=${article.id }">삭제</a>
+				<a class="btn" href="../article/doDelete?id=${article.id }">삭제</a>
 			</c:if>
 
 		</div>

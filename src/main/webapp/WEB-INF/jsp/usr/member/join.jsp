@@ -7,44 +7,49 @@
 <section class="mt-8 text-xl px-4">
 	<div class="mx-auto">
 		<form action="../member/doJoin" method="POST">
-			<table border="1" cellspacing="0" cellpadding="5" style="width: 100%; border-collapse: collapse;">
+			<table class="table" border="1" cellspacing="0" cellpadding="5" style="width: 100%; border-collapse: collapse;">
 				<tbody>
 					<tr>
 						<th>아이디</th>
-						<td style="text-align: center;"><input name="loginId" autocomplete="off" type="text" placeholder="아이디를 입력해" /></td>
+						<td style="text-align: center;"><input class="input input-bordered input-primary input-sm w-full max-w-xs"
+							name="loginId" autocomplete="off" type="text" placeholder="아이디를 입력해" /></td>
 
 					</tr>
 					<tr>
 						<th>비밀번호</th>
-						<td style="text-align: center;"><input name="loginPw" autocomplete="off" type="text" placeholder="비밀번호를 입력해" /></td>
+						<td style="text-align: center;"><input class="input input-bordered input-primary input-sm w-full max-w-xs"
+							name="loginPw" autocomplete="off" type="text" placeholder="비밀번호를 입력해" /></td>
 					</tr>
 					<tr>
 						<th>이름</th>
-						<td style="text-align: center;"><input name="name" autocomplete="off" type="text" placeholder="이름 입력해" /></td>
+						<td style="text-align: center;"><input class="input input-bordered input-primary input-sm w-full max-w-xs"
+							name="name" autocomplete="off" type="text" placeholder="이름 입력해" /></td>
 					</tr>
 					<tr>
 						<th>닉네임</th>
-						<td style="text-align: center;"><input name="nickname" autocomplete="off" type="text" placeholder="닉네임 입력해" /></td>
+						<td style="text-align: center;"><input class="input input-bordered input-primary input-sm w-full max-w-xs"
+							name="nickname" autocomplete="off" type="text" placeholder="닉네임 입력해" /></td>
 					</tr>
 					<tr>
 						<th>전화번호</th>
-						<td style="text-align: center;"><input name="cellphoneNum" autocomplete="off" type="text"
-							placeholder="전화번호를 입력해" /></td>
+						<td style="text-align: center;"><input class="input input-bordered input-primary input-sm w-full max-w-xs"
+							name="cellphoneNum" autocomplete="off" type="text" placeholder="전화번호를 입력해" /></td>
 					</tr>
 					<tr>
 						<th>이메일</th>
-						<td style="text-align: center;"><input name="email" autocomplete="off" type="text" placeholder="이메일을 입력해" /></td>
+						<td style="text-align: center;"><input class="input input-bordered input-primary input-sm w-full max-w-xs"
+							name="email" autocomplete="off" type="text" placeholder="이메일을 입력해" /></td>
 					</tr>
 					<tr>
 						<th></th>
-						<td style="text-align: center;"><input type="submit" value="가입" /></td>
+						<td style="text-align: center;"><button class="btn btn-primary">가입</button></td>
 
 					</tr>
 				</tbody>
 			</table>
 		</form>
 		<div class="btns">
-			<button type="button" onclick="history.back()">뒤로가기</button>
+			<button class="btn" type="button" onclick="history.back()">뒤로가기</button>
 		</div>
 	</div>
 </section>

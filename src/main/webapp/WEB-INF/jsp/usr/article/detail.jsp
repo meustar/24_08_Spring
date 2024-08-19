@@ -5,7 +5,7 @@
 <hr />
 <section class="mt-8 text-xl px-4">
 	<div class="mx-auto">
-		<table border="1" cellspacing="0" cellpadding="5" style="width: 100%; border-collapse: collapse;">
+		<table class="table" border="1" cellspacing="0" cellpadding="5" style="width: 100%; border-collapse: collapse;">
 			<tbody>
 				<tr>
 					<th style="text-align: center;">ID</th>
@@ -35,12 +35,12 @@
 			</tbody>
 		</table>
 		<div class="btns">
-			<button type="button" onclick="history.back()">뒤로가기</button>
+			<button class="table" type="button" onclick="history.back()">뒤로가기</button>
 			<c:if test="${article.userCanModify }">
-				<a href="../article/modify?id=${article.id }">수정</a>
+				<a class="table" href="../article/modify?id=${article.id }">수정</a>
 			</c:if>
 			<c:if test="${article.userCanDelete }">
-				<a href="../article/doDelete?id=${article.id }">삭제</a>
+				<a class="table" href="../article/doDelete?id=${article.id }">삭제</a>
 			</c:if>
 		</div>
 	</div>

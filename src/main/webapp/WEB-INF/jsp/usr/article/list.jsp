@@ -6,7 +6,7 @@
 
 <section class="mt-8 text-xl px-4">
 	<div class="mx-auto">
-		<table border="1" cellspacing="0" cellpadding="5" style="width: 100%; border-collapse: collapse;">
+		<table class="table" border="1" cellspacing="0" cellpadding="5" style="width: 100%; border-collapse: collapse;">
 			<thead>
 				<tr>
 					<th style="text-align: center;">ID</th>
@@ -17,7 +17,7 @@
 			</thead>
 			<tbody>
 				<c:forEach var="article" items="${articles}">
-					<tr>
+					<tr class="hover" >
 						<td style="text-align: center;">${article.id}</td>
 						<td style="text-align: center;">${article.regDate.substring(0,10)}</td>
 						<td style="text-align: center;"><a class="hover:underline" href="detail?id=${article.id}">${article.title}</a></td>
