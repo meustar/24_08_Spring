@@ -4,7 +4,7 @@
 <%@ include file="../common/head.jspf"%>
 <hr />
 
-<section class="mt-8 text-xl px-4">
+<section class="mt-24 text-xl px-4">
 	<div class="mx-auto">
 		<form action="../article/doModify" method="POST">
 			<input type="hidden" name="id" value="${article.id}" />

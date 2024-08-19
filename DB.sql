@@ -3,7 +3,6 @@
 DROP DATABASE IF EXISTS `24_08_Spring`;
 CREATE DATABASE `24_08_Spring`;
 USE `24_08_Spring`;
-
 # 게시글 테이블 생성
 CREATE TABLE article(
       id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -12,7 +11,6 @@ CREATE TABLE article(
       title CHAR(100) NOT NULL,
       `body` TEXT NOT NULL
 );
-
 # 회원 테이블 생성
 CREATE TABLE `member`(
       id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -28,9 +26,6 @@ CREATE TABLE `member`(
       delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '탈퇴 여부 (0=탈퇴 전, 1=탈퇴 후)',
       delDate DATETIME COMMENT '탈퇴 날짜'
 );
-
-
-
 ## 게시글 테스트 데이터 생성
 INSERT INTO article
 SET regDate = NOW(),
@@ -47,14 +42,11 @@ SET regDate = NOW(),
 updateDate = NOW(),
 title = '제목3',
 `body` = '내용3';
-
 INSERT INTO article
 SET regDate = NOW(),
 updateDate = NOW(),
 title = '제목4',
 `body` = '내용4';
-
-
 ## 회원 테스트 데이터 생성
 ## (관리자)
 INSERT INTO `member`
@@ -91,12 +83,9 @@ ALTER TABLE article ADD COLUMN memberId INT(10) UNSIGNED NOT NULL AFTER updateDa
 UPDATE article
 SET memberId = 2
 WHERE id IN (1,2);
-
 UPDATE article
 SET memberId = 3
 WHERE id IN (3,4);
-
-
 # 게시판(board) 테이블 생성
 CREATE TABLE board (
       id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -107,18 +96,17 @@ CREATE TABLE board (
       delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '삭제 여부 (0=삭제 전, 1=삭제 후)',
       delDate DATETIME COMMENT '삭제 날짜'
 );
-
 ## 게시판(board) 테스트 데이터 생성
 INSERT INTO board
 SET regDate = NOW(),
 updateDate = NOW(),
-`code` = 'notice',
+`code` = 'NOTICE',
 `name` = '공지사항';
 
 INSERT INTO board
 SET regDate = NOW(),
 updateDate = NOW(),
-`code` = 'free',
+`code` = 'FREE',
 `name` = '자유';
 
 INSERT INTO board
@@ -126,37 +114,31 @@ SET regDate = NOW(),
 updateDate = NOW(),
 `code` = 'QnA',
 `name` = '질의응답';
-
 ALTER TABLE article ADD COLUMN boardId INT(10) UNSIGNED NOT NULL AFTER `memberId`;
-
 UPDATE article
 SET boardId = 1
 WHERE id IN (1,2);
-
 UPDATE article
 SET boardId = 2
 WHERE id = 3;
-
 UPDATE article
 SET boardId = 3
 WHERE id = 4;
-
 ###(INIT 끝)
 ##########################################
 SELECT *
 FROM article
 ORDER BY id DESC;
-
-
 SELECT *
 FROM board;
-
-
 SELECT *
 FROM `member`;
 
-
 ###############################################################################
+
+SELECT *
+			FROM board
+			WHERE id = 3
 
 ## 게시글 테스트 데이터 대량 생성
 INSERT INTO article

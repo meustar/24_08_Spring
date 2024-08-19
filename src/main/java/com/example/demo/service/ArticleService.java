@@ -24,8 +24,8 @@ public class ArticleService {
 
 	// 서비스 메서드
 
-	public ResultData writeArticle(int memberId, String title, String body) {
-		articleRepository.writeArticle(memberId, title, body);
+	public ResultData writeArticle(int memberId, String title, String body, String boardId) {
+		articleRepository.writeArticle(memberId, title, body, boardId);
 
 		int id = articleRepository.getLastInsertId();
 		return ResultData.from("S-1", Ut.f("%d번 글이 등록되었습니다.", id), "등록 된 게시글의 id", id);
@@ -55,6 +55,10 @@ public class ArticleService {
 	public Article getArticleById(int id) {
 
 		return articleRepository.getArticleById(id);
+	}
+	
+	public List<Article> getForPrintArticles(int boardId) {
+		return articleRepository.getForPrintArticles(boardId);
 	}
 
 	public List<Article> getArticles() {
