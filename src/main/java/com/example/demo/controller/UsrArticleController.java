@@ -39,11 +39,27 @@ public class UsrArticleController {
 		
 		return "usr/article/detail";
 	}
+	
+	@RequestMapping("/usr/article/modify")
+	public String showModify(HttpServletRequest req, Model model, int id) {
+
+		Rq rq = (Rq) req.getAttribute("rq");
+
+		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
+
+		if (article == null) {
+			return Ut.jsHistoryBack("F-1", Ut.f("%d번 게시글은 없습니다", id));
+		}
+
+		model.addAttribute("article", article);
+
+		return "/usr/article/modify";
+	}
 
 	// 로그인 체크 -> 유무 체크 -> 권한 체크 -> 수정
 	@RequestMapping("/usr/article/doModify")
 	@ResponseBody
-	public ResultData<Article> doModify(HttpServletRequest req, int id, String title, String body) {
+	public String doModify(HttpServletRequest req, int id, String title, String body) {
 		
 		
 		Rq rq = (Rq) req.getAttribute("rq");
@@ -51,14 +67,14 @@ public class UsrArticleController {
 		Article article = articleService.getArticleById(id);
 
 		if (article == null) {
-			return ResultData.from("F-1", Ut.f("%d번 게시글은 없습니다.", id));
+			return Ut.jsHistoryBack("F-1", Ut.f("%d번 게시글은 없습니다.", id));
 		}
 
 		// -3- 권한 체크
 		ResultData userCanModifyRd = articleService.userCanModify(rq.getLoginedMemberId(), article);
 		
 		if (userCanModifyRd.isFail()) {
-			return userCanModifyRd;
+			return Ut.jsHistoryBack(userCanModifyRd.getResultCode(), userCanModifyRd.getMsg());
 		}
 		if (userCanModifyRd.isSuccess()) {
 			articleService.modifyArticle(id, title, body);
@@ -71,8 +87,7 @@ public class UsrArticleController {
 		
 		article = articleService.getArticleById(id);
 
-		return ResultData.from(userCanModifyRd.getResultCode(), userCanModifyRd.getMsg(),"수정 된 게시글", 
-				article);
+		return Ut.jsReplace(userCanModifyRd.getResultCode(), userCanModifyRd.getMsg(),"../article/detail?id=" + id);
 	}
 
 	@RequestMapping("/usr/article/doDelete")
