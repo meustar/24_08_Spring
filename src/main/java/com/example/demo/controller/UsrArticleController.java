@@ -19,6 +19,9 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class UsrArticleController {
+	
+	@Autowired
+	private Rq rq;
 
 	// 서비스의 생성자가 없는데도 사용할수 있다.
 	@Autowired

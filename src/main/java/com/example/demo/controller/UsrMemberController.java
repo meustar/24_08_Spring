@@ -15,6 +15,9 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class UsrMemberController {
+	
+	@Autowired
+	private Rq rq;
 
 	@Autowired
 	private MemberService memberService;
@@ -31,7 +34,7 @@ public class UsrMemberController {
 	}
 	
 	@RequestMapping("/usr/member/login")
-	public String showLogin() {
+	public String showLogin(HttpServletRequest req) {
 		return "/usr/member/login";
 	}
 	
