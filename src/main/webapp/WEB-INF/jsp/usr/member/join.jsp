@@ -17,11 +17,27 @@
 					<tr>
 						<th>비밀번호</th>
 						<td style="text-align: center;"><input name="loginPw" autocomplete="off" type="text" placeholder="비밀번호를 입력해" /></td>
-
+					</tr>
+					<tr>
+						<th>이름</th>
+						<td style="text-align: center;"><input name="name" autocomplete="off" type="text" placeholder="이름 입력해" /></td>
+					</tr>
+					<tr>
+						<th>닉네임</th>
+						<td style="text-align: center;"><input name="nickname" autocomplete="off" type="text" placeholder="닉네임 입력해" /></td>
+					</tr>
+					<tr>
+						<th>전화번호</th>
+						<td style="text-align: center;"><input name="cellphoneNum" autocomplete="off" type="text"
+							placeholder="전화번호를 입력해" /></td>
+					</tr>
+					<tr>
+						<th>이메일</th>
+						<td style="text-align: center;"><input name="email" autocomplete="off" type="text" placeholder="이메일을 입력해" /></td>
 					</tr>
 					<tr>
 						<th></th>
-						<td style="text-align: center;"><input type="submit" value="로그인" /></td>
+						<td style="text-align: center;"><input type="submit" value="가입" /></td>
 
 					</tr>
 				</tbody>

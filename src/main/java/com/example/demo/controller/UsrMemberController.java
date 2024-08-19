@@ -65,41 +65,47 @@ public class UsrMemberController {
 
 		return Ut.jsReplace("S-1", Ut.f("%s님 환영합니다.", member.getNickname()), "/");
 	}
+	
+	@RequestMapping("/usr/member/join")
+	public String showJoin(HttpServletRequest req) {
+
+		return "/usr/member/join";
+	}
 
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
-	public ResultData<Member> doJoin(HttpServletRequest req, String loginId, String loginPw, String name,
+	public String doJoin(HttpServletRequest req, String loginId, String loginPw, String name,
 			String nickname, String cellphoneNum, String email) {
 
 		if (Ut.isEmptyOrNull(loginId)) {
-			return ResultData.from("F-1", Ut.f("%d(을)를 제대로 입력해주세요.", loginId));
+			return Ut.jsHistoryBack("F-1", Ut.f("%d(을)를 제대로 입력해주세요.", loginId));
 		}
 
 		if (Ut.isEmptyOrNull(loginPw)) {
-			return ResultData.from("F-2", Ut.f("%d(을)를 제대로 입력해주세요.", loginPw));
+			return Ut.jsHistoryBack("F-2", Ut.f("%d(을)를 제대로 입력해주세요.", loginPw));
 		}
 		if (Ut.isEmptyOrNull(name)) {
-			return ResultData.from("F-3", Ut.f("%d(을)를 제대로 입력해주세요.", name));
+			return Ut.jsHistoryBack("F-3", Ut.f("%d(을)를 제대로 입력해주세요.", name));
 		}
 		if (Ut.isEmptyOrNull(nickname)) {
-			return ResultData.from("F-4", Ut.f("%d(을)를 제대로 입력해주세요.", nickname));
+			return Ut.jsHistoryBack("F-4", Ut.f("%d(을)를 제대로 입력해주세요.", nickname));
 		}
 		if (Ut.isEmptyOrNull(cellphoneNum)) {
-			return ResultData.from("F-5", Ut.f("%d(을)를 제대로 입력해주세요.", cellphoneNum));
+			return Ut.jsHistoryBack("F-5", Ut.f("%d(을)를 제대로 입력해주세요.", cellphoneNum));
 		}
 		if (Ut.isEmptyOrNull(email)) {
-			return ResultData.from("F-6", Ut.f("%d(을)를 제대로 입력해주세요.", email));
+			return Ut.jsHistoryBack("F-6", Ut.f("%d(을)를 제대로 입력해주세요.", email));
 		}
 
-		ResultData doJoinRd = memberService.doJoin(loginId, loginPw, name, nickname, cellphoneNum, email);
+		ResultData joinRd = memberService.join(loginId, loginPw, name, nickname, cellphoneNum, email);
 
-		if (doJoinRd.isFail()) {
-			return doJoinRd;
+		if (joinRd.isFail()) {
+			return Ut.jsHistoryBack(joinRd.getResultCode(), joinRd.getMsg());
 		}
 
-		Member member = memberService.getMemberById((int) doJoinRd.getData1());
+		Member member = memberService.getMemberById((int) joinRd.getData1());
 
-		return ResultData.newData(doJoinRd, "새로 생성된 member", member);
+		return Ut.jsReplace(joinRd.getResultCode(), joinRd.getMsg(), "../member/login");
 
 	}
 
