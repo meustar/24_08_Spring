@@ -20349,3 +20349,42 @@ AND delStatus = 0
 2024-08-20 10:30:53 [DEBUG] org.mybatis.spring.SqlSessionUtils - Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@7d130e21]
 2024-08-20 10:31:03 [DEBUG] com.zaxxer.hikari.pool.HikariPool - HikariPool-5 - Pool stats (total=10, active=0, idle=10, waiting=0)
 2024-08-20 10:31:03 [DEBUG] com.zaxxer.hikari.pool.HikariPool - HikariPool-5 - Fill pool skipped, pool has sufficient level or currently being filled (queueDepth=0).
+2024-08-20 10:31:33 [DEBUG] com.zaxxer.hikari.pool.HikariPool - HikariPool-5 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2024-08-20 10:31:33 [DEBUG] com.zaxxer.hikari.pool.HikariPool - HikariPool-5 - Fill pool skipped, pool has sufficient level or currently being filled (queueDepth=0).
+2024-08-20 10:32:03 [DEBUG] com.zaxxer.hikari.pool.HikariPool - HikariPool-5 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2024-08-20 10:32:03 [DEBUG] com.zaxxer.hikari.pool.HikariPool - HikariPool-5 - Fill pool skipped, pool has sufficient level or currently being filled (queueDepth=0).
+2024-08-20 10:32:33 [DEBUG] com.zaxxer.hikari.pool.HikariPool - HikariPool-5 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2024-08-20 10:32:33 [DEBUG] com.zaxxer.hikari.pool.HikariPool - HikariPool-5 - Fill pool skipped, pool has sufficient level or currently being filled (queueDepth=0).
+2024-08-20 10:32:57 [INFO ] o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2024-08-20 10:32:57 [DEBUG] o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Change set: [C:\work_kgb\sts-4.24.0.RELEASE-workspace\demo\target\classes [C:\work_kgb\sts-4.24.0.RELEASE-workspace\demo\target\classes\com\example\demo\controller\UsrArticleController.class (MODIFY)]]
+2024-08-20 10:32:57 [DEBUG] o.s.boot.devtools.restart.Restarter - Restarting application
+2024-08-20 10:32:57 [DEBUG] o.s.boot.devtools.restart.Restarter - Stopping application
+2024-08-20 10:32:57 [DEBUG] o.s.b.a.ApplicationAvailabilityBean - Application availability state ReadinessState changed from ACCEPTING_TRAFFIC to REFUSING_TRAFFIC
+2024-08-20 10:32:57 [DEBUG] o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@265e18b9, started on Tue Aug 20 10:24:01 KST 2024
+2024-08-20 10:32:57 [DEBUG] o.s.c.s.DefaultLifecycleProcessor - Stopping beans in phase 2147483647
+2024-08-20 10:32:57 [DEBUG] o.s.c.s.DefaultLifecycleProcessor - Bean 'applicationTaskExecutor' completed its stop procedure
+2024-08-20 10:32:57 [DEBUG] o.s.c.s.DefaultLifecycleProcessor - Stopping beans in phase 2147482623
+2024-08-20 10:32:57 [DEBUG] o.s.c.s.DefaultLifecycleProcessor - Bean 'webServerGracefulShutdown' completed its stop procedure
+2024-08-20 10:32:57 [DEBUG] o.s.c.s.DefaultLifecycleProcessor - Stopping beans in phase 2147481599
+2024-08-20 10:32:57 [INFO ] o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+2024-08-20 10:32:57 [DEBUG] o.s.c.s.DefaultLifecycleProcessor - Bean 'webServerStartStop' completed its stop procedure
+2024-08-20 10:32:57 [DEBUG] o.s.c.s.DefaultLifecycleProcessor - Stopping beans in phase -2147483647
+2024-08-20 10:32:57 [DEBUG] o.s.c.s.DefaultLifecycleProcessor - Bean 'springBootLoggingLifecycle' completed its stop procedure
+2024-08-20 10:32:57 [DEBUG] o.s.j.e.a.AnnotationMBeanExporter - Unregistering JMX-exposed beans on shutdown
+2024-08-20 10:32:57 [DEBUG] o.s.j.e.a.AnnotationMBeanExporter - Unregistering JMX-exposed beans
+2024-08-20 10:32:57 [DEBUG] o.s.s.c.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2024-08-20 10:32:57 [INFO ] com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Shutdown initiated...
+2024-08-20 10:32:57 [DEBUG] com.zaxxer.hikari.pool.HikariPool - HikariPool-5 - Before shutdown stats (total=10, active=0, idle=10, waiting=0)
+2024-08-20 10:32:57 [DEBUG] com.zaxxer.hikari.pool.PoolBase - HikariPool-5 - Closing connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@13677c1b: (connection evicted)
+2024-08-20 10:32:57 [DEBUG] com.zaxxer.hikari.pool.PoolBase - HikariPool-5 - Closing connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@278443e5: (connection evicted)
+2024-08-20 10:32:57 [DEBUG] com.zaxxer.hikari.pool.PoolBase - HikariPool-5 - Closing connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@66b949de: (connection evicted)
+2024-08-20 10:32:57 [DEBUG] com.zaxxer.hikari.pool.PoolBase - HikariPool-5 - Closing connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@5715692b: (connection evicted)
+2024-08-20 10:32:57 [DEBUG] com.zaxxer.hikari.pool.PoolBase - HikariPool-5 - Closing connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@696b691: (connection evicted)
+2024-08-20 10:32:57 [DEBUG] com.zaxxer.hikari.pool.PoolBase - HikariPool-5 - Closing connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@74ac7d1f: (connection evicted)
+2024-08-20 10:32:57 [DEBUG] com.zaxxer.hikari.pool.PoolBase - HikariPool-5 - Closing connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@2d8ccb6: (connection evicted)
+2024-08-20 10:32:57 [DEBUG] com.zaxxer.hikari.pool.PoolBase - HikariPool-5 - Closing connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@7d673514: (connection evicted)
+2024-08-20 10:32:57 [DEBUG] com.zaxxer.hikari.pool.PoolBase - HikariPool-5 - Closing connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@46195548: (connection evicted)
+2024-08-20 10:32:57 [DEBUG] com.zaxxer.hikari.pool.PoolBase - HikariPool-5 - Closing connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@4fa5551e: (connection evicted)
+2024-08-20 10:32:57 [DEBUG] com.zaxxer.hikari.pool.HikariPool - HikariPool-5 - After shutdown stats (total=0, active=0, idle=0, waiting=0)
+2024-08-20 10:32:57 [INFO ] com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Shutdown completed.
+2024-08-20 10:32:57 [DEBUG] o.s.boot.devtools.restart.Restarter - Starting application com.example.demo.DemoApplication with URLs [file:/C:/work_kgb/sts-4.24.0.RELEASE-workspace/demo/target/classes/]
