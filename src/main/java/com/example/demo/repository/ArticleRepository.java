@@ -56,14 +56,22 @@ public interface ArticleRepository {
 	public Article getArticleById(int id);
 
 	@Select("""
-			SELECT A.* , M.nickname AS extra__writer
-			FROM article AS A
-			INNER JOIN `member` AS M
-			ON A.memberId = M.id
-			WHERE A.boardId = #{boardId}
-			ORDER BY A.id DESC
+			<script>
+				SELECT A.* , M.nickname AS extra__writer
+				FROM article AS A
+				INNER JOIN `member` AS M
+				ON A.memberId = M.id
+				WHERE 1
+				<if test="boardId != 0">
+					AND boardId = #{boardId}
+				</if>
+				ORDER BY A.id DESC
+				<if test="limitFrom >= 0">
+					LIMIT #{limitFrom}, #{limitTake}
+				</if>
+			</script>
 			""")
-	public List<Article> getForPrintArticles(int boardId);
+	public List<Article> getForPrintArticles(int boardId, int limitFrom, int limitTake);
 
 	@Select("""
 			SELECT A.* , M.nickname AS extra__writer
@@ -77,5 +85,18 @@ public interface ArticleRepository {
 	@Select("SELECT LAST_INSERT_ID();")
 	public int getLastInsertId();
 
+	
+	@Select("""
+			<script>
+				SELECT COUNT(*) AS cnt
+				FROM article
+				WHERE 1
+				<if test="boardId != 0">
+					AND boardId = #{boardId}
+				</if>
+				ORDER BY id DESC;
+			</script>
+			""")
+	public int getArticleCount(int boardId);
 
 }

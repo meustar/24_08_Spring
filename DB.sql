@@ -136,9 +136,17 @@ FROM `member`;
 
 ###############################################################################
 
-SELECT *
-			FROM board
-			WHERE id = 3
+INSERT INTO article
+(
+    regDate, updateDate, memberId, boardId, title, `body`
+)
+select now(), now(), floor(RAND() * 2) + 2, FLOOR(RAND() * 3) + 1, CONCAT('제목__', RAND()), CONCAT('내용__', RAND())
+from article;
+
+
+select floor(RAND() * 2) + 2
+
+SELECT FLOOR(RAND() * 3) + 1
 
 ## 게시글 테스트 데이터 대량 생성
 INSERT INTO article
@@ -146,3 +154,6 @@ SET regDate = NOW(),
 updateDate = NOW(),
 title = CONCAT('제목__', RAND()),
 `body` = CONCAT('내용__', RAND());
+
+show full columns from `member`;
+desc `member`;
