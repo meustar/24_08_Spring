@@ -57,8 +57,13 @@
 		<c:set var="startPage" value="${page -  paginationLen  >= 1 ? page - paginationLen : 1}" />
 		<c:set var="endPage" value="${page +  paginationLen  <= pagesCount ? page + paginationLen : pagesCount}" />
 
+		<c:set var="baseUri" value="?boardId=${boardId }"/>
+		<c:set var="baseUri" value="${baseUri }&searchKeywordTypeCode=${searchKeywordTypeCode }"/>
+		<c:set var="baseUri" value="${baseUri }&searchKeyword=${&searchKeyword }"/>
+		
+
 		<c:if test="${startPage > 1 }">
-			<a class="btn btn-sm" href="?page=1&boardId=${boardId }">1</a>
+			<a class="btn btn-sm" href="${ baseUri}&page=1">1</a>
 
 		</c:if>
 		<c:if test="${startPage > 2 }">
@@ -66,7 +71,7 @@
 		</c:if>
 
 		<c:forEach begin="${startPage }" end="${endPage }" var="i">
-			<a class="btn btn-sm ${param.page == i ? 'btn-active' : '' }" href="?page=${i }&boardId=${boardId}">${i }</a>
+			<a class="btn btn-sm ${param.page == i ? 'btn-active' : '' }" href="${ baseUri}&page=${i }">${i }</a>
 		</c:forEach>
 
 		<c:if test="${endPage < pagesCount - 1 }">
@@ -74,7 +79,7 @@
 		</c:if>
 
 		<c:if test="${endPage < pagesCount }">
-			<a class="btn btn-sm" href="?page=${pagesCount }&boardId=${boardId }">${pagesCount }</a>
+			<a class="btn btn-sm" href="${ baseUri}&page=${pagesCount }">${pagesCount }</a>
 		</c:if>
 	</div>
 
@@ -84,7 +89,7 @@
 	<!-- 		<div class="btn-group"> -->
 
 	<%-- 			<c:forEach begin="1" end="${pagesCount }" var="i"> --%>
-	<%-- 				<a class="btn btn-sm ${param.page == i ? 'btn-active':''}" href="?page=${i }&boardId=${param.boardId}">${i }</a> --%>
+	<%-- 				<a class="btn btn-sm ${param.page == i ? 'btn-active':''}" href="${ baseUri}&page=${i }">${i }</a> --%>
 	<%-- 			</c:forEach> --%>
 	<!-- 		</div> -->
 	<!-- 	</div> -->

@@ -158,7 +158,8 @@ public class UsrArticleController {
 
 	@RequestMapping("/usr/article/list")
 	public String showList(HttpServletRequest req, Model model, @RequestParam(defaultValue = "1") int boardId,
-			@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "title,body") String serchKeywordTypeCode,
+			@RequestParam(defaultValue = "1") int page,
+			@RequestParam(defaultValue = "title,body") String searchKeywordTypeCode,
 			@RequestParam(defaultValue = "") String searchKeyword) throws IOException {
 
 		Rq rq = (Rq) req.getAttribute("rq");
@@ -166,7 +167,7 @@ public class UsrArticleController {
 		Board board = boardService.getBoardById(boardId);
 
 		// 페이지네이션
-		int articlesCount = articleService.getArticlesCount(boardId, serchKeywordTypeCode, searchKeyword);
+		int articlesCount = articleService.getArticlesCount(boardId, searchKeywordTypeCode, searchKeyword);
 
 		// 한 페이지에 글 10개
 		// 글 20개 -> 2page
@@ -175,7 +176,8 @@ public class UsrArticleController {
 
 		int pagesCount = (int) Math.ceil(articlesCount / (double) itemsInAPage);
 
-		List<Article> articles = articleService.getForPrintArticles(boardId, itemsInAPage, page);
+		List<Article> articles = articleService.getForPrintArticles(boardId, itemsInAPage, page, searchKeywordTypeCode,
+				searchKeyword);
 
 		if (board == null) {
 			return rq.historyBackOnView("없는 게시판입니다.");
@@ -186,6 +188,8 @@ public class UsrArticleController {
 		model.addAttribute("pagesCount", pagesCount);
 		model.addAttribute("board", board);
 		model.addAttribute("page", page);
+		model.addAttribute("searchKeywordTypeCode", searchKeywordTypeCode);
+		model.addAttribute("searchKeyword", searchKeyword);
 		model.addAttribute("boardId", boardId);
 
 		return "usr/article/list";
