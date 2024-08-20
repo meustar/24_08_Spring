@@ -26,8 +26,6 @@ public class UsrMemberController {
 	@ResponseBody
 	public String doLogout(HttpServletRequest req) {
 
-		Rq rq = (Rq) req.getAttribute("rq");
-
 		rq.logout();
 		
 		return Ut.jsReplace("S-1", Ut.f("로그아웃"), "/");

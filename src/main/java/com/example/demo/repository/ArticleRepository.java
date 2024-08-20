@@ -81,11 +81,10 @@ public interface ArticleRepository {
 			ORDER BY A.id DESC
 			""")
 	public List<Article> getArticles();
-	
+
 	@Select("SELECT LAST_INSERT_ID();")
 	public int getLastInsertId();
 
-	
 	@Select("""
 			<script>
 				SELECT COUNT(*) AS cnt

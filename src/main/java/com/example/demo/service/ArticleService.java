@@ -44,11 +44,11 @@ public class ArticleService {
 	}
 
 	public Article getForPrintArticle(int loginedMemberId, int id) {
-		
+
 		Article article = articleRepository.getForPrintArticle(id);
-		
+
 		controlForPrintData(loginedMemberId, article);
-		
+
 		return article;
 	}
 
@@ -56,7 +56,7 @@ public class ArticleService {
 
 		return articleRepository.getArticleById(id);
 	}
-	
+
 	public List<Article> getForPrintArticles(int boardId, int itemsInAPage, int page) {
 
 //		SELECT * FROM article WHERE boardId = 1 ORDER BY DESC LIMIT 0, 10; 1page
@@ -77,13 +77,13 @@ public class ArticleService {
 			return;
 		}
 		ResultData userCanModifyRd = userCanModify(loginedMemberId, article);
-		
+
 		article.setUserCanModify(userCanModifyRd.isSuccess());
-		
+
 		ResultData userCanDeleteRd = userCanDelete(loginedMemberId, article);
-		
+
 		article.setUserCanDelete(userCanModifyRd.isSuccess());
-		
+
 	}
 
 	public ResultData userCanDelete(int loginedMemberId, Article article) {
@@ -101,7 +101,7 @@ public class ArticleService {
 	}
 
 	public int getArticlesCount(int boardId) {
-		return 0;
+		return articleRepository.getArticleCount(boardId);
 	}
 
 }
