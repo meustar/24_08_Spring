@@ -93,9 +93,23 @@ public interface ArticleRepository {
 				<if test="boardId != 0">
 					AND boardId = #{boardId}
 				</if>
+				<if test="serchKeyword !=''">
+					<choose>
+						<when test="searchKeywordTypeCode == 'title'">
+							AND title LIKE CONCAT('%', #{searchKeyword},'%')
+						</when>
+						<when test="searchKeywordTypeCode == `body`">
+							AND `body` LIKE CONCAT('%', #{searchKeyword},'%')
+						</when>
+						<otherwise>
+							AND title LIKE CONCAT('%', #{searchKeyword}, '%')
+							OR `body` LIKE CONCAT('%', #{searchKeyword}, '%')
+						</otherwise>
+					</choose>
+				</if>
 				ORDER BY id DESC;
 			</script>
 			""")
-	public int getArticleCount(int boardId);
+	public int getArticleCount(int boardId, String serchKeywordTypeCode, String searchKeyword);
 
 }

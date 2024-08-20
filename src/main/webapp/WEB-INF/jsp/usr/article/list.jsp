@@ -3,8 +3,23 @@
 <c:set var="pageTitle" value="${board.code } LIST"></c:set>
 <%@ include file="../common/head.jspf"%>
 <hr />
-
-<section class="mt-24 text-xl px-4">
+<div class="searchbox relative">
+	<select class="select select-bordered w-full max-w-xs mb-2">
+		<option disabled selected>게시판 선택</option>
+		<option value="1">공지사항</option>
+		<option value="2">자유</option>
+		<option value="3">Q&A</option>
+	</select>
+	<label class="input input-bordered flex items-center gap-2 max-w-xs absolute top-full mt-2">
+		<input type="text" class="grow" placeholder="Search" />
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="h-4 w-4 opacity-70">
+    <path fill-rule="evenodd"
+				d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+				clip-rule="evenodd" />
+  </svg>
+	</label>
+</div>
+<section class="mt-8 text-xl px-4">
 	<div class="mx-auto">
 		<div>${articlesCount }개</div>
 		<table class="table" border="1" cellspacing="0" cellpadding="5" style="width: 100%; border-collapse: collapse;">
@@ -65,14 +80,14 @@
 
 
 	<!-- 직관적인 페이징 -->
-	<div class="pagination flex justify-center mt-3">
-		<div class="btn-group">
+	<!-- 	<div class="pagination flex justify-center mt-3"> -->
+	<!-- 		<div class="btn-group"> -->
 
-			<c:forEach begin="1" end="${pagesCount }" var="i">
-				<a class="btn btn-sm ${param.page == i ? 'btn-active':''}" href="?page=${i }&boardId=${param.boardId}">${i }</a>
-			</c:forEach>
-		</div>
-	</div>
+	<%-- 			<c:forEach begin="1" end="${pagesCount }" var="i"> --%>
+	<%-- 				<a class="btn btn-sm ${param.page == i ? 'btn-active':''}" href="?page=${i }&boardId=${param.boardId}">${i }</a> --%>
+	<%-- 			</c:forEach> --%>
+	<!-- 		</div> -->
+	<!-- 	</div> -->
 </section>
 
 <%@ include file="../common/foot.jspf"%>

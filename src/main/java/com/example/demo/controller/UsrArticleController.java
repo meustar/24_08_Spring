@@ -158,14 +158,15 @@ public class UsrArticleController {
 
 	@RequestMapping("/usr/article/list")
 	public String showList(HttpServletRequest req, Model model, @RequestParam(defaultValue = "1") int boardId,
-			@RequestParam(defaultValue = "1") int page) throws IOException {
+			@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "title,body") String serchKeywordTypeCode,
+			@RequestParam(defaultValue = "") String searchKeyword) throws IOException {
 
 		Rq rq = (Rq) req.getAttribute("rq");
 
 		Board board = boardService.getBoardById(boardId);
 
 		// 페이지네이션
-		int articlesCount = articleService.getArticlesCount(boardId);
+		int articlesCount = articleService.getArticlesCount(boardId, serchKeywordTypeCode, searchKeyword);
 
 		// 한 페이지에 글 10개
 		// 글 20개 -> 2page
