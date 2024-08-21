@@ -73,7 +73,7 @@ public interface ArticleRepository {
 						<when test="searchKeywordTypeCode == 'body'">
 							AND A.`body` LIKE CONCAT('%', #{searchKeyword}, '%')
 						</when>
-						<when test="searchKeywordTypeCode == 'nickname'">
+						<when test="searchKeywordTypeCode == 'writer'">
 							AND M.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
 						</when>
 						<otherwise>
@@ -105,7 +105,7 @@ public interface ArticleRepository {
 
 	@Select("""
 			<script>
-				SELECT COUNT(*) , M.nickname AS extra__writer
+				SELECT COUNT(*), A.*, M.nickname AS extra__writer
 				FROM article AS A
 				INNER JOIN `member` AS M
 				ON A.memberId = M.id
@@ -121,7 +121,7 @@ public interface ArticleRepository {
 						<when test="searchKeywordTypeCode == `body`">
 							AND A.`body` LIKE CONCAT('%', #{searchKeyword},'%')
 						</when>
-						<when test="searchKeywordTypeCode == 'nickname'">
+						<when test="searchKeywordTypeCode == 'writer'">
 							AND M.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
 						</when>
 						<otherwise>
@@ -134,5 +134,12 @@ public interface ArticleRepository {
 			</script>
 			""")
 	public int getArticleCount(int boardId, String serchKeywordTypeCode, String searchKeyword);
+
+	@Update("""
+			UPDATE article
+			SET hitCount = hitCount + 1
+			WHERE id = #{id}
+			""")
+	public void increaseHitCount(int id);
 
 }

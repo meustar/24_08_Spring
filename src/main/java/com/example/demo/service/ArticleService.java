@@ -104,4 +104,9 @@ public class ArticleService {
 		return articleRepository.getArticleCount(boardId, serchKeywordTypeCode ,searchKeyword);
 	}
 
+	public void increaseHitCount(int id) {
+		articleRepository.increaseHitCount(id);
+		
+	}
+
 }
