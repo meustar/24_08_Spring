@@ -134,12 +134,20 @@ public interface ArticleRepository {
 			</script>
 			""")
 	public int getArticleCount(int boardId, String serchKeywordTypeCode, String searchKeyword);
-
+	
+	@Select("""
+			SELECT hitCount
+			FROM article
+			WHERE id = #{id}
+				""")
+	public Object getArticleHitCount(int id);
+	
 	@Update("""
 			UPDATE article
 			SET hitCount = hitCount + 1
 			WHERE id = #{id}
 			""")
 	public int increaseHitCount(int id);
+
 
 }

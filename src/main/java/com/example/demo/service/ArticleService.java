@@ -115,4 +115,8 @@ public class ArticleService {
 
 	}
 
+	public Object getArticleHitCount(int id) {
+		return articleRepository.getArticleHitCount(id);
+	}
+
 }
