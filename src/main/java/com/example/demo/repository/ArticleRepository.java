@@ -140,6 +140,6 @@ public interface ArticleRepository {
 			SET hitCount = hitCount + 1
 			WHERE id = #{id}
 			""")
-	public void increaseHitCount(int id);
+	public int increaseHitCount(int id);
 
 }
