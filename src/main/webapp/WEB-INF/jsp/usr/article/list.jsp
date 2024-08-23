@@ -56,6 +56,9 @@
 					<th style="text-align: center;">Registration Date</th>
 					<th style="text-align: center;">Title</th>
 					<th style="text-align: center;">Writer</th>
+					<th style="text-align: center;">sumRP</th>
+					<th style="text-align: center;">goodRP</th>
+					<th style="text-align: center;">badRP</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -63,10 +66,11 @@
 					<tr class="hover">
 						<td style="text-align: center;">${article.id}</td>
 						<td style="text-align: center;">${article.regDate.substring(0,10)}</td>
-						<td style="text-align: center;">
-							<a class="hover:underline" href="detail?id=${article.id}">${article.title}</a>
-						</td>
+						<td style="text-align: center;"><a class="hover:underline" href="detail?id=${article.id}">${article.title}</a></td>
 						<td style="text-align: center;">${article.extra__writer}</td>
+						<td style="text-align: center;">${article.extra__sumReactionPoint}</td>
+						<td style="text-align: center;">${article.extra__goodReactionPoint}</td>
+						<td style="text-align: center;">${article.extra__badReactionPoint}</td>
 					</tr>
 				</c:forEach>
 				<c:if test="${empty articles}">
@@ -85,9 +89,8 @@
 		<c:set var="endPage" value="${page +  paginationLen  <= pagesCount ? page + paginationLen : pagesCount}" />
 
 		<c:set var="baseUri" value="?boardId=${boardId }" />
-		<c:set var="baseUri" value="${baseUri }&searchKeywordTypeCode=${searchKeywordTypeCode }" />
-		<c:set var="baseUri" value="${baseUri }&searchKeyword=${&searchKeyword }" />
-
+		<c:set var="baseUri" value="${baseUri }&searchKeywordTypeCode=${searchKeywordTypeCode}" />
+		<c:set var="baseUri" value="${baseUri }&searchKeyword=${searchKeyword}" />
 
 		<c:if test="${startPage > 1 }">
 			<a class="btn btn-sm" href="${ baseUri}&page=1">1</a>
@@ -111,15 +114,15 @@
 	</div>
 
 
-	<!-- 직관적인 페이징 -->
-	<!-- 	<div class="pagination flex justify-center mt-3"> -->
-	<!-- 		<div class="btn-group"> -->
+	<!-- 	직관적인 페이징 -->
+	<div class="pagination flex justify-center mt-3">
+		<div class="btn-group">
 
-	<%-- 			<c:forEach begin="1" end="${pagesCount }" var="i"> --%>
-	<%-- 				<a class="btn btn-sm ${param.page == i ? 'btn-active':''}" href="${ baseUri}&page=${i }">${i }</a> --%>
-	<%-- 			</c:forEach> --%>
-	<!-- 		</div> -->
-	<!-- 	</div> -->
+			<c:forEach begin="1" end="${pagesCount }" var="i">
+				<a class="btn btn-sm ${param.page == i ? 'btn-active':''}" href="${ baseUri}&page=${i }">${i }</a>
+			</c:forEach>
+		</div>
+	</div>
 </section>
 
 <%@ include file="../common/foot.jspf"%>

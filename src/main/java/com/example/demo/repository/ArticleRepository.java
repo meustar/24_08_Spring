@@ -62,10 +62,15 @@ public interface ArticleRepository {
 
 	@Select("""
 			<script>
-				SELECT A.* , M.nickname AS extra__writer
+				SELECT A.*, M.nickname AS extra__writer,
+				IFNULL(SUM(RP.point),0) AS extra__sumReactionPoint,
+				IFNULL(SUM(IF(RP.point &gt; 0,RP.point,0)),0) AS extra__goodReactionPoint,
+				IFNULL(SUM(IF(RP.point &lt; 0,RP.point,0)),0) AS extra__badReactionPoint
 				FROM article AS A
 				INNER JOIN `member` AS M
 				ON A.memberId = M.id
+				LEFT JOIN reactionPoint AS RP
+				ON A.id = RP.relId AND RP.relTypeCode = 'article'
 				WHERE 1
 				<if test="boardId != 0">
 					AND boardId = #{boardId}
@@ -87,6 +92,7 @@ public interface ArticleRepository {
 						</otherwise>
 					</choose>
 				</if>
+				GROUP BY A.id
 				ORDER BY A.id DESC
 				<if test="limitFrom >= 0">
 					LIMIT #{limitFrom}, #{limitTake}
@@ -118,13 +124,13 @@ public interface ArticleRepository {
 				<if test="boardId != 0">
 					AND A.boardId = #{boardId}
 				</if>
-				<if test="serchKeyword !=''">
+				<if test="searchKeyword != ''">
 					<choose>
 						<when test="searchKeywordTypeCode == 'title'">
 							AND A.title LIKE CONCAT('%', #{searchKeyword},'%')
 						</when>
-						<when test="searchKeywordTypeCode == `body`">
-							AND A.`body` LIKE CONCAT('%', #{searchKeyword},'%')
+						<when test="searchKeywordTypeCode == 'body'">
+							AND A.`body` LIKE CONCAT('%', #{searchKeyword}, '%')
 						</when>
 						<when test="searchKeywordTypeCode == 'writer'">
 							AND M.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
@@ -138,15 +144,15 @@ public interface ArticleRepository {
 				ORDER BY A.id DESC;
 			</script>
 			""")
-	public int getArticleCount(int boardId, String serchKeywordTypeCode, String searchKeyword);
-	
+	public int getArticleCount(int boardId, String searchKeywordTypeCode, String searchKeyword);
+
 	@Select("""
 			SELECT hitCount
 			FROM article
 			WHERE id = #{id}
 				""")
-	public Object getArticleHitCount(int id);
-	
+	public int getArticleHitCount(int id);
+
 	@Update("""
 			UPDATE article
 			SET hitCount = hitCount + 1
