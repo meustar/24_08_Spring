@@ -72,8 +72,8 @@ public class UsrMemberController {
 
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
-	public String doJoin(HttpServletRequest req, String loginId, String loginPw, String name,
-			String nickname, String cellphoneNum, String email) {
+	public String doJoin(HttpServletRequest req, String loginId, String loginPw, String name, String nickname,
+			String cellphoneNum, String email) {
 
 		if (Ut.isEmptyOrNull(loginId)) {
 			return Ut.jsHistoryBack("F-1", Ut.f("%d(을)를 제대로 입력해주세요.", loginId));

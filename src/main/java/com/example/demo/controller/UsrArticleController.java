@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.service.ArticleService;
 import com.example.demo.service.BoardService;
+import com.example.demo.service.ReactionPointService;
 import com.example.demo.util.Ut;
 import com.example.demo.vo.Article;
 import com.example.demo.vo.Board;
@@ -33,6 +34,9 @@ public class UsrArticleController {
 	@Autowired
 	private BoardService boardService;
 
+	@Autowired
+	private ReactionPointService reactionPointService;
+
 	// 액션 메서드, 컨트롤 메서드
 	@RequestMapping("/usr/article/detail")
 	public String showDetail(HttpServletRequest req, Model model, int id) {
@@ -41,11 +45,15 @@ public class UsrArticleController {
 
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
+		// -1 싫어요, 0 표현 x, 1 좋아요
+		int usersReaction = reactionPointService.usersReaction(rq.getLoginedMemberId(), "article", id);
+
 		model.addAttribute("article", article);
+		model.addAttribute("usersReaction", usersReaction);
 
 		return "usr/article/detail";
 	}
-	
+
 	@RequestMapping("/usr/article/doIncreaseHitCountRd")
 	@ResponseBody
 	public ResultData doIncreaseHitCount(int id) {
@@ -62,7 +70,6 @@ public class UsrArticleController {
 
 		return rd;
 	}
-	
 
 	@RequestMapping("/usr/article/modify")
 	public String showModify(HttpServletRequest req, Model model, int id) {

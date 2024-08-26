@@ -39,13 +39,6 @@
 
 html>body {
 	font-family: 'LotteMartDream', sans-serif;
-	height: 100vh;
-}
-html>body>div {
-	height: 10vh;
-	display:flex;
-	justify-content: center;
-	align-items: center;
 }
 
 header>div>ul>li {

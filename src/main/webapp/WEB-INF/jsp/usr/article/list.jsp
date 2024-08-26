@@ -3,23 +3,8 @@
 <c:set var="pageTitle" value="${board.code } LIST"></c:set>
 <%@ include file="../common/head.jspf"%>
 <hr />
-<div class="searchbox relative">
-	<select class="select select-bordered w-full max-w-xs mb-2">
-		<option disabled selected>게시판 선택</option>
-		<option value="1">공지사항</option>
-		<option value="2">자유</option>
-		<option value="3">Q&A</option>
-	</select>
-	<label class="input input-bordered flex items-center gap-2 max-w-xs absolute top-full mt-2">
-		<input type="text" class="grow" placeholder="Search" />
-		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="h-4 w-4 opacity-70">
-    <path fill-rule="evenodd"
-				d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-				clip-rule="evenodd" />
-  </svg>
-	</label>
-</div>
-<section class="mt-8 text-xl px-4">
+
+<section class="mt-24 text-xl px-4">
 	<div class="mx-auto">
 		<div class="mb-4 flex">
 			<div>${articlesCount }개</div>
@@ -35,9 +20,8 @@
 						<option value="body">body</option>
 						<option value="title,body">title+body</option>
 						<option value="writer">writer</option>
-					</select>
-					<label class="ml-3 input input-bordered input-sm flex items-center gap-2">
-						<input type="text" placeholder="Search" name="searchKeyword" value="${param.searchKeyword }" />
+					</select> <label class="ml-3 input input-bordered input-sm flex items-center gap-2"> <input type="text"
+						placeholder="Search" name="searchKeyword" value="${param.searchKeyword }" />
 						<button type="submit">
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="h-4 w-4 opacity-70">
     <path fill-rule="evenodd"
@@ -56,9 +40,8 @@
 					<th style="text-align: center;">Registration Date</th>
 					<th style="text-align: center;">Title</th>
 					<th style="text-align: center;">Writer</th>
-					<th style="text-align: center;">sumRP</th>
-					<th style="text-align: center;">goodRP</th>
-					<th style="text-align: center;">badRP</th>
+					<th style="text-align: center;">Like</th>
+					<th style="text-align: center;">Dislike</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -68,9 +51,8 @@
 						<td style="text-align: center;">${article.regDate.substring(0,10)}</td>
 						<td style="text-align: center;"><a class="hover:underline" href="detail?id=${article.id}">${article.title}</a></td>
 						<td style="text-align: center;">${article.extra__writer}</td>
-						<td style="text-align: center;">${article.extra__sumReactionPoint}</td>
-						<td style="text-align: center;">${article.extra__goodReactionPoint}</td>
-						<td style="text-align: center;">${article.extra__badReactionPoint}</td>
+						<td style="text-align: center;">${article.goodReactionPoint}</td>
+						<td style="text-align: center;">${article.badReactionPoint}</td>
 					</tr>
 				</c:forEach>
 				<c:if test="${empty articles}">

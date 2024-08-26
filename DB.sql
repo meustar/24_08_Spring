@@ -26,8 +26,6 @@ CREATE TABLE `member`(
       delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '탈퇴 여부 (0=탈퇴 전, 1=탈퇴 후)',
       delDate DATETIME COMMENT '탈퇴 날짜'
 );
-
-
 ## 게시글 테스트 데이터 생성
 INSERT INTO article
 SET regDate = NOW(),
@@ -81,18 +79,13 @@ loginPw = 'test2',
 nickname = '회원2_닉네임',
 cellphoneNum = '01056785678',
 email = 'abcde@gmail.com';
-
 ALTER TABLE article ADD COLUMN memberId INT(10) UNSIGNED NOT NULL AFTER updateDate;
-
 UPDATE article
 SET memberId = 2
 WHERE id IN (1,2);
-
 UPDATE article
 SET memberId = 3
 WHERE id IN (3,4);
-
-
 # 게시판(board) 테이블 생성
 CREATE TABLE board (
       id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -119,9 +112,7 @@ SET regDate = NOW(),
 updateDate = NOW(),
 `code` = 'QnA',
 `name` = '질의응답';
-
 ALTER TABLE article ADD COLUMN boardId INT(10) UNSIGNED NOT NULL AFTER `memberId`;
-
 UPDATE article
 SET boardId = 1
 WHERE id IN (1,2);
@@ -131,11 +122,7 @@ WHERE id = 3;
 UPDATE article
 SET boardId = 3
 WHERE id = 4;
-
 ALTER TABLE article ADD COLUMN hitCount INT(10) UNSIGNED NOT NULL DEFAULT 0 AFTER `body`;
-
-
-
 # reactionPoint 테이블 생성
 CREATE TABLE reactionPoint(
     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -146,7 +133,6 @@ CREATE TABLE reactionPoint(
     relId INT(10) NOT NULL COMMENT '관련 데이터 번호',
     `point` INT(10) NOT NULL
 );
-
 # reactionPoint 테스트 데이터 생성
 # 1번 회원이 1번 글에 싫어요
 INSERT INTO reactionPoint
@@ -156,7 +142,6 @@ memberId = 1,
 relTypeCode = 'article',
 relId = 1,
 `point` = -1;
-
 # 1번 회원이 2번 글에 좋아요
 INSERT INTO reactionPoint
 SET regDate = NOW(),
@@ -165,7 +150,6 @@ memberId = 1,
 relTypeCode = 'article',
 relId = 2,
 `point` = 1;
-
 # 2번 회원이 1번 글에 싫어요
 INSERT INTO reactionPoint
 SET regDate = NOW(),
@@ -174,7 +158,6 @@ memberId = 2,
 relTypeCode = 'article',
 relId = 1,
 `point` = -1;
-
 # 2번 회원이 2번 글에 싫어요
 INSERT INTO reactionPoint
 SET regDate = NOW(),
@@ -183,7 +166,6 @@ memberId = 2,
 relTypeCode = 'article',
 relId = 2,
 `point` = -1;
-
 # 3번 회원이 1번 글에 좋아요
 INSERT INTO reactionPoint
 SET regDate = NOW(),
@@ -193,20 +175,33 @@ relTypeCode = 'article',
 relId = 1,
 `point` = 1;
 
+# article 테이블에 reactionPoint(좋아요) 관련 컬럼 추가
+alter table article add column goodReactionPoint int(10) unsigned not null default 0;
+ALTER TABLE article ADD COLUMN badReactionPoint INT(10) UNSIGNED NOT NULL DEFAULT 0;
+
+# update join -> 기존 게시글의 good bad RP 값을 RP 테이블에서 추출해서 article table에 채운다
+update article as A
+inner join (
+    select RP.relTypeCode, Rp.relId,
+    SUM(IF(RP.point > 0,RP.point,0)) AS goodReactionPoint,
+    SUM(IF(RP.point < 0,RP.point * -1,0)) AS badReactionPoint
+    from reactionPoint As RP
+    group by RP.relTypeCode,Rp.relId
+) as RP_SUM
+on A.id = RP_SUM.relId
+set A.goodReactionPoint = RP_SUM.goodReactionPoint,
+A.badReactionPoint = RP_SUM.badReactionPoint;
+
+
 ###(INIT 끝)
 ##########################################
 SELECT *
 FROM article
 ORDER BY id DESC;
-
 SELECT * FROM board;
-
 SELECT * FROM `member`;
-
 SELECT * FROM `reactionPoint`;
-
 ###############################################################################
-
 ## 게시글 테스트 데이터 대량 생성
 INSERT INTO article
 (
@@ -214,26 +209,19 @@ INSERT INTO article
 )
 SELECT NOW(), NOW(), FLOOR(RAND() * 2) + 2, FLOOR(RAND() * 3) + 1, CONCAT('제목__', RAND()), CONCAT('내용__', RAND())
 FROM article;
-
-
 SELECT FLOOR(RAND() * 2) + 2
-
 SELECT FLOOR(RAND() * 3) + 1
-
 INSERT INTO article
 SET regDate = NOW(),
 updateDate = NOW(),
 title = CONCAT('제목__', RAND()),
 `body` = CONCAT('내용__', RAND());
-
 SHOW FULL COLUMNS FROM `member`;
 DESC `member`;
-
 SELECT *
 FROM article
 WHERE boardId = 1
 ORDER BY id DESC;
-
 SELECT *
 FROM article
 WHERE boardId = 2
@@ -247,28 +235,23 @@ SELECT COUNT(*) AS cnt
 FROM article
 WHERE boardId = 1
 ORDER BY id DESC;
-
 SELECT *
 FROM article
 WHERE boardId = 1 AND title LIKE '%123%'
 ORDER BY id DESC;
-
 SELECT *
 FROM article
 WHERE boardId = 1 AND `body` LIKE '%123%'
 ORDER BY id DESC;
-
 SELECT *
 FROM article
 WHERE boardId = 1 AND title LIKE '%123%' OR `body` LIKE '%123%'
 ORDER BY id DESC;
-
 SELECT COUNT(*)
 FROM article AS A
 WHERE A.boardId = 1 
 ORDER BY A.id DESC;
 boardId=1&searchKeywordTypeCode=nickname&searchKeyword=1
-
 SELECT COUNT(*)
 FROM article AS A
 WHERE A.boardId = 1 AND A.memberId = 3
@@ -276,7 +259,6 @@ ORDER BY A.id DESC;
 
 SELECT hitCount
 FROM article WHERE id = 3
-
 
 SELECT * FROM `reactionPoint`;
 
