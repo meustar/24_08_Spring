@@ -65,20 +65,25 @@ function doGoodReaction(articleId) {
 				if(data.resultCode.startsWith('S-')){
 					var likeButton = $('#likeButton');
 					var likeCount = $('#likeCount');
+					var likeCountC = $('.likeCount');
 					var DislikeButton = $('#DislikeButton');
 					var DislikeCount = $('#DislikeCount');
+					var DislikeCountC = $('.DislikeCount');
 					
 					if(data.resultCode == 'S-1'){
 						likeButton.toggleClass('btn-outline');
 						likeCount.text(data.data1);
+						likeCountC.text(data.data1);
 					}else if(data.resultCode == 'S-2'){
 						DislikeButton.toggleClass('btn-outline');
 						DislikeCount.text(data.data2);
+						DislikeCountC.text(data.data2);
 						likeButton.toggleClass('btn-outline');
 						likeCount.text(data.data1);
 					}else {
 						likeButton.toggleClass('btn-outline');
 						likeCount.text(data.data1);
+						likeCountC.text(data.data1);
 					}
 					
 				}else {
@@ -108,21 +113,27 @@ function doBadReaction(articleId) {
 				if(data.resultCode.startsWith('S-')){
 					var likeButton = $('#likeButton');
 					var likeCount = $('#likeCount');
+					var likeCountC = $('.likeCount');
 					var DislikeButton = $('#DislikeButton');
 					var DislikeCount = $('#DislikeCount');
+					var DislikeCountC = $('.DislikeCount');
 					
 					if(data.resultCode == 'S-1'){
 						DislikeButton.toggleClass('btn-outline');
 						DislikeCount.text(data.data2);
+						DislikeCountC.text(data.data2);
 					}else if(data.resultCode == 'S-2'){
 						likeButton.toggleClass('btn-outline');
 						likeCount.text(data.data1);
+						likeCountC.text(data.data1);
 						DislikeButton.toggleClass('btn-outline');
 						DislikeCount.text(data.data2);
+						DislikeCountC.text(data.data2);
 		
 					}else {
 						DislikeButton.toggleClass('btn-outline');
 						DislikeCount.text(data.data2);
+						DislikeCountC.text(data.data2);
 					}
 			
 				}else {
@@ -176,14 +187,18 @@ function doBadReaction(articleId) {
 				<tr>
 					<th style="text-align: center;">LIKE / Dislike / ${usersReaction }</th>
 					<td style="text-align: center;">
-							<button id="likeButton" class="btn btn-outline btn-success" onclick="doGoodReaction(${param.id})">👍 LIKE
-							${article.goodReactionPoint}</button>
-							<button id="DislikeButton" class="btn btn-outline btn-error" onclick="doBadReaction(${param.id})">👎
-							DISLIKE ${article.badReactionPoint}</button>
-<%-- 						<a href="/usr/reactionPoint/doGoodReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.currentUri}" --%>
-<%-- 							class="btn btn-outline btn-success">👍 LIKE ${article.goodReactionPoint}</a>  --%>
-<%-- 						<a href="/usr/reactionPoint/doBadReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.currentUri}"  --%>
-<%-- 							class="btn btn-outline btn-error">👎 DISLIKE ${article.badReactionPoint}</a> --%>
+						<button id="likeButton" class="btn btn-outline btn-success" onclick="doGoodReaction(${param.id})">
+							👍 LIKE
+							<span class="likeCount">${article.goodReactionPoint}</span>
+						</button>
+						<button id="DislikeButton" class="btn btn-outline btn-error" onclick="doBadReaction(${param.id})">
+							👎 DISLIKE
+							<span class="DislikeCount">${article.badReactionPoint}</span>
+						</button>
+						<%-- 						<a href="/usr/reactionPoint/doGoodReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.currentUri}" --%>
+						<%-- 							class="btn btn-outline btn-success">👍 LIKE ${article.goodReactionPoint}</a>  --%>
+						<%-- 						<a href="/usr/reactionPoint/doBadReaction?relTypeCode=article&relId=${param.id }&replaceUri=${rq.currentUri}"  --%>
+						<%-- 							class="btn btn-outline btn-error">👎 DISLIKE ${article.badReactionPoint}</a> --%>
 					</td>
 				</tr>
 				<tr>
