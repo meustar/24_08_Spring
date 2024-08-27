@@ -5,8 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.demo.service.ArticleService;
 import com.example.demo.service.ReactionPointService;
-import com.example.demo.util.Ut;
 import com.example.demo.vo.ResultData;
 import com.example.demo.vo.Rq;
 
@@ -18,6 +18,9 @@ public class UsrReactionPointController {
 
 	@Autowired
 	private ReactionPointService reactionPointService;
+	
+	@Autowired
+	private ArticleService articleService;
 
 	@RequestMapping("/usr/reactionPoint/doGoodReaction")
 	@ResponseBody
@@ -31,7 +34,11 @@ public class UsrReactionPointController {
 
 			ResultData rd = reactionPointService.deleteGoodReactionPoint(rq.getLoginedMemberId(), relTypeCode, relId);
 			
-			return ResultData.from("S-1", "좋아요 취소");
+			int goodRP = articleService.getGoodRP(relId);
+			
+			int badRP = articleService.getGoodRP(relId);
+			
+			return ResultData.from("S-1", "좋아요 취소", "goodRP", goodRP, "badRP", badRP);
 			
 		} else if (usersReaction == -1) {
 			
@@ -39,7 +46,11 @@ public class UsrReactionPointController {
 			
 			rd = reactionPointService.addGoodReactionPoint(rq.getLoginedMemberId(), relTypeCode, relId);
 			
-			return ResultData.from("S-2", "싫어요 했었음");
+			int goodRP = articleService.getGoodRP(relId);
+			
+			int badRP = articleService.getBadRP(relId);
+			
+			return ResultData.from("S-2", "싫어요 했었음", "goodRP", goodRP, "badRP", badRP);
 		}
 
 		ResultData reactionRd = reactionPointService.addGoodReactionPoint(rq.getLoginedMemberId(), relTypeCode, relId);
@@ -49,7 +60,11 @@ public class UsrReactionPointController {
 			return ResultData.from(reactionRd.getResultCode(), reactionRd.getMsg());
 		}
 
-		return ResultData.from(reactionRd.getResultCode(), reactionRd.getMsg());
+		int goodRP = articleService.getGoodRP(relId);
+		
+		int badRP = articleService.getBadRP(relId);
+
+		return ResultData.from(reactionRd.getResultCode(), reactionRd.getMsg(), "goodRP", goodRP, "badRP", badRP);
 	}
 	
 	@RequestMapping("/usr/reactionPoint/doBadReaction")
@@ -64,7 +79,11 @@ public class UsrReactionPointController {
 			
 			ResultData rd = reactionPointService.deleteBadReactionPoint(rq.getLoginedMemberId(), relTypeCode, relId);
 			
-			return ResultData.from("S-1", "싫어요 취소");
+			int goodRP = articleService.getGoodRP(relId);
+			
+			int badRP = articleService.getBadRP(relId);
+			
+			return ResultData.from("S-1", "싫어요 취소", "goodRP", goodRP, "badRP", badRP);
 			
 		} else if (usersReaction == 1) {
 			
@@ -72,7 +91,11 @@ public class UsrReactionPointController {
 			
 			rd = reactionPointService.addBadReactionPoint(rq.getLoginedMemberId(), relTypeCode, relId);
 			
-			return ResultData.from("S-2", "좋아요 했었음");
+			int goodRP = articleService.getGoodRP(relId);
+			
+			int badRP = articleService.getBadRP(relId);
+			
+			return ResultData.from("S-2", "좋아요 했었음", "goodRP", goodRP, "badRP", badRP);
 		}
 
 		ResultData reactionRd = reactionPointService.addBadReactionPoint(rq.getLoginedMemberId(), relTypeCode, relId);
@@ -82,7 +105,11 @@ public class UsrReactionPointController {
 			return ResultData.from(reactionRd.getResultCode(), reactionRd.getMsg());
 		}
 
-		return ResultData.from(reactionRd.getResultCode(), reactionRd.getMsg());
+		int goodRP = articleService.getGoodRP(relId);
+		
+		int badRP = articleService.getBadRP(relId);
+
+		return ResultData.from(reactionRd.getResultCode(), reactionRd.getMsg(), "goodRP", goodRP, "badRP", badRP);
 	}
 
 }
