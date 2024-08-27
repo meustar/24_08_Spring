@@ -9,6 +9,12 @@
 <script>
 	const params = {};
 	params.id = parseInt('${param.id}');
+	params.memberId = parseInt('${loginedMemberId}')
+	
+	console.log(params);
+	console.log(params.id);
+	console.log(params.memberId);
+	
 	var isAlreadyAddGoodRp = ${isAlreadyAddGoodRp};
 	var isAlreadyAddBadRp = ${isAlreadyAddBadRp};
 </script>
@@ -50,7 +56,17 @@
 		}
 	}
 function doGoodReaction(articleId) {
-		
+		if(isNaN(params.memberId) == true) {
+			if(confirm('로그인 페이지로 이동하겠습니까?')) {
+// 				console.log(window.location.href);
+// 				console.log(encodeURIComponent(window.location.href));
+				var currentUri = encodeURIComponent(window.location.href);
+				window.location.href = '../member/login?afterLoginUri=' + currentUri;
+				// 로그인 페이지에서 원래 페이지의 정보를 포함시켜서 보냄.
+			}
+			return;
+		}	
+	
 		$.ajax({
 			url: '/usr/reactionPoint/doGoodReaction',
 			type: 'POST',
@@ -98,7 +114,15 @@ function doGoodReaction(articleId) {
 		});
 	}
 function doBadReaction(articleId) {
-	
+	if(isNaN(params.memberId) == true) {
+		if(confirm('로그인 페이지로 이동하겠습니까?')) {
+//				console.log(window.location.href);
+//				console.log(encodeURIComponent(window.location.href));
+			var currentUri = encodeURIComponent(window.location.href);
+			window.location.href = '../member/login?afterLoginUri=' + currentUri;
+		}
+		return;
+	}	
 	 $.ajax({
 			url: '/usr/reactionPoint/doBadReaction',
 			type: 'POST',
