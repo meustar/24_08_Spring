@@ -81,5 +81,20 @@ public class Rq {
 		req.setAttribute("historyBack", true);
 		return "usr/common/js";
 	}
-	
+
+	public String getCurrentUri() {
+		String currentUri = req.getRequestURI();
+		String queryString = req.getQueryString();
+
+		System.err.println(currentUri);
+		System.err.println(queryString);
+
+		if (currentUri != null && queryString != null) {
+			currentUri += "?" + queryString;
+		}
+
+		System.out.println(currentUri);
+
+		return currentUri;
+	}
 }

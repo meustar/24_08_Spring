@@ -6,6 +6,9 @@
 
 <section class="mt-24 text-xl px-4">
 	<div class="mx-auto">
+
+		<%-- 		${articles} --%>
+
 		<div class="mb-4 flex">
 			<div>${articlesCount }개</div>
 			<div class="flex-grow"></div>
@@ -20,9 +23,8 @@
 						<option value="body">body</option>
 						<option value="title,body">title+body</option>
 						<option value="writer">writer</option>
-					</select>
-					<label class="ml-3 input input-bordered input-sm flex items-center gap-2">
-						<input type="text" placeholder="Search" name="searchKeyword" value="${param.searchKeyword }" />
+					</select> <label class="ml-3 input input-bordered input-sm flex items-center gap-2"> <input type="text"
+						placeholder="Search" name="searchKeyword" value="${param.searchKeyword }" />
 						<button type="submit">
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="h-4 w-4 opacity-70">
     <path fill-rule="evenodd"
@@ -51,8 +53,8 @@
 						<td style="text-align: center;">${article.id}</td>
 						<td style="text-align: center;">${article.regDate.substring(0,10)}</td>
 						<td style="text-align: center;">
-							<a class="hover:underline" href="detail?id=${article.id}">${article.title}
-								<c:if test=${article.extra__repliesCount > 0 }">
+							<a class="hover:underline" href="detail?id=${article.id}">${article.title} <c:if
+									test="${article.extra__repliesCount > 0 }">
 									<span style="color: red;">[${article.extra__repliesCount }]</span>
 								</c:if>
 							</a>

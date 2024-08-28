@@ -20,14 +20,14 @@ public interface ReplyRepository {
 			WHERE relTypeCode = #{relTypeCode}
 			AND relId = #{relId}
 			ORDER BY R.id ASC;
-			""")
-	public List<Reply> getForPrintReplies(int loginedMemberId, String relTypeCode, int id);
+				""")
+	public List<Reply> getForPrintReplies(int loginedMemberId, String relTypeCode, int relId);
 
 	@Insert("""
 			INSERT INTO reply
 			SET regDate = NOW(),
 			updateDate = NOW(),
-			memberId = #{memberId},
+			memberId = #{loginedMemberId},
 			relTypeCode = #{relTypeCode},
 			relId = #{relId},
 			`body` = #{body}
@@ -39,11 +39,11 @@ public interface ReplyRepository {
 
 	
 	@Select("""
-			SELECT R.*
-			FROM reply AS R
-			WHERE R.id = #{id}
-		""")
-	public Reply getReply(int id);
+				SELECT R.*
+				FROM reply AS R
+				WHERE R.id = #{id}
+			""")
+	Reply getReply(int id);
 
 	
 	@Update("""

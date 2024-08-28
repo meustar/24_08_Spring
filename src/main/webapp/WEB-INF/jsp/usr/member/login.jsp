@@ -12,19 +12,25 @@
 				<tbody>
 					<tr>
 						<th>아이디</th>
-						<td style="text-align: center;"><input class="input input-bordered input-primary input-sm w-full max-w-xs"
-							name="loginId" autocomplete="off" type="text" placeholder="아이디를 입력해" /></td>
+						<td style="text-align: center;">
+							<input class="input input-bordered input-primary input-sm w-full max-w-xs" name="loginId" autocomplete="off"
+								type="text" placeholder="아이디를 입력해" />
+						</td>
 
 					</tr>
 					<tr>
 						<th>비밀번호</th>
-						<td style="text-align: center;"><input class="input input-bordered input-primary input-sm w-full max-w-xs"
-							name="loginPw" autocomplete="off" type="text" placeholder="비밀번호를 입력해" /></td>
+						<td style="text-align: center;">
+							<input class="input input-bordered input-primary input-sm w-full max-w-xs" name="loginPw" autocomplete="off"
+								type="text" placeholder="비밀번호를 입력해" />
+						</td>
 
 					</tr>
 					<tr>
 						<th></th>
-						<td style="text-align: center;"><button class="btn btn-primary">로그인</button></td>
+						<td style="text-align: center;">
+							<button class="btn btn-primary">로그인</button>
+						</td>
 
 					</tr>
 				</tbody>
