@@ -29,6 +29,7 @@
 </style>
 <!-- 제이쿼리 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 <script>
 	function callByAjax() {
 		let form = document.form1;
@@ -42,6 +43,7 @@
 			$('.rs').text(data);
 		}, 'html');
 	}
+	
 	function callByAjaxV2() {
 		let form = document.form1;
 		let num1 = form.num1.value;
@@ -58,6 +60,7 @@
 			$('.rs-msg').text(msg);
 		}, 'html');
 	}
+	
 	function callByAjaxV3() {
 		let form = document.form1;
 		let num1 = form.num1.value;
@@ -76,6 +79,7 @@
 			$('.rs-code').text(code);
 		}, 'html');
 	}
+	
 	function callByAjaxV4() {
 		let form = document.form1;
 		let num1 = form.num1.value;

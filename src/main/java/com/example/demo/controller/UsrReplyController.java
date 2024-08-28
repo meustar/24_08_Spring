@@ -53,5 +53,29 @@ public class UsrReplyController {
 		return Ut.jsReplace(writeReplyRd.getResultCode(), writeReplyRd.getMsg(), "../article/detail?id=" + relId);
 
 	}
+	
+	@RequestMapping("/usr/reply/doModify")
+	@ResponseBody
+	public String doModify(HttpServletRequest req, int id, String body) {
+		System.err.println(id);
+		System.err.println(body);
+		Rq rq = (Rq) req.getAttribute("rq");
+
+		Reply reply = replyService.getReply(id);
+
+		if (reply == null) {
+			return Ut.jsHistoryBack("F-1", Ut.f("%d번 댓글은 존재하지 않습니다", id));
+		}
+
+		ResultData loginedMemberCanModifyRd = replyService.userCanModify(rq.getLoginedMemberId(), reply);
+
+		if (loginedMemberCanModifyRd.isSuccess()) {
+			replyService.modifyReply(id, body);
+		}
+
+		reply = replyService.getReply(id);
+
+		return reply.getBody();
+	}
 
 }
