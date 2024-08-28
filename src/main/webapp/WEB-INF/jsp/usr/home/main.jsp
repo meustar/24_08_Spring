@@ -5,7 +5,6 @@
 
 <hr />
 
-<div></div>
-<div></div>
+
 
 <%@ include file="../common/foot.jspf"%>
