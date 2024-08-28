@@ -60,7 +60,7 @@ public class UsrArticleController {
 			model.addAttribute("userCanMakeReaction", usersReactionRd.isSuccess());
 		}
 		
-		List<Reply> replies = replyService.getForPrintReplies("article", id);
+		List<Reply> replies = replyService.getForPrintReplies(rq.getLoginedMemberId(), "article", id);
 		
 		int repliesCount = replies.size();
 

@@ -20,7 +20,7 @@ public interface ReplyRepository {
 			AND relId = #{relId}
 			ORDER BY R.id ASC;
 			""")
-	public List<Reply> getForPrintReplies(String relTypeCode, int id);
+	public List<Reply> getForPrintReplies(int loginedMemberId, String relTypeCode, int id);
 
 	@Insert("""
 			INSERT INTO reply

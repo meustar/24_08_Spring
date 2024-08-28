@@ -303,7 +303,7 @@ function doBadReaction(articleId) {
 	<c:if test="${!rq.isLogined() }">
 		댓글 작성을 위해 <a class="btn btn-outline btn-primary" href="../member/login">로그인</a>이 필요합니다
 	</c:if>
-	
+
 	<!-- 	댓글 리스트 -->
 	<div class="mx-auto">
 		<table class="table" border="1" cellspacing="0" cellpadding="5" style="width: 100%; border-collapse: collapse;">
@@ -314,6 +314,8 @@ function doBadReaction(articleId) {
 					<th style="text-align: center;">Body</th>
 					<th style="text-align: center;">Like</th>
 					<th style="text-align: center;">Dislike</th>
+					<th style="text-align: center;">Edit</th>
+					<th style="text-align: center;">Delete</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -324,6 +326,17 @@ function doBadReaction(articleId) {
 						<td style="text-align: center;">${reply.body}</td>
 						<td style="text-align: center;">${reply.goodReactionPoint}</td>
 						<td style="text-align: center;">${reply.badReactionPoint}</td>
+						<td style="text-align: center;">
+							<c:if test="${reply.userCanModify }">
+								<a class="btn btn-outline btn-xs btn-success" href="../reply/modify?id=${reply.id }">수정</a>
+							</c:if>
+						</td>
+						<td style="text-align: center;">
+							<c:if test="${reply.userCanDelete }">
+								<a class="btn btn-outline btn-xs btn-error" onclick="if(confirm('정말 삭제?') == false) return false;"
+									href="../reply/doDelete?id=${reply.id }">삭제</a>
+							</c:if>
+						</td>
 					</tr>
 				</c:forEach>
 

@@ -25,5 +25,5 @@ public class Reply {
 	
 	private boolean userCanModify;
 	private boolean userCanDelete;
-
+                        
 }
