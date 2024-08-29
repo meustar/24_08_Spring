@@ -4,9 +4,28 @@
 <%@ include file="../common/head.jspf"%>
 <hr />
 
+<script type="text/javascript">
+	function MemberModify__submit(form) {
+		form.loginPw.value = form.loginPw.value.trim();
+		if (form.loginPw.value.length > 0) {
+			form.loginPwConfirm.value = form.loginPwConfirm.value.trim();
+			if (form.loginPwConfirm.value == 0) {
+				alert('비번 확인 써');
+				return;
+			}
+			if (form.loginPwConfirm.value != form.loginPw.value) {
+				alert('비번 불일치');
+				return;
+			}
+		}
+		form.submit();
+	}
+</script>
+
+
 <section class="mt-24 text-xl px-4">
 	<div class="mx-auto">
-		<form action="../member/doModify" method="POST">
+		<form onsubmit="MemberModify__submit(this); return false;" action="../member/doModify" method="POST">
 			<table class="table" border="1" cellspacing="0" cellpadding="5" style="width: 100%; border-collapse: collapse;">
 				<tbody>
 					<tr>
