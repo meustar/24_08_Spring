@@ -25,7 +25,7 @@
 					<tr>
 						<th></th>
 						<td style="text-align: center;">
-							<button class="btn btn-primary">로그인</button>
+							<button type="submit" class="btn btn-primary">확인</button>
 						</td>
 
 					</tr>
