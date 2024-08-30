@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="pageTitle" value="DETAIL"></c:set>
 <%@ include file="../common/head.jspf"%>
+<%@ include file="../common/toastUiEditorLib.jspf"%>
 <hr />
 
 <!-- <iframe src="http://localhost:8080/usr/article/doIncreaseHitCount?id=757" frameborder="0"></iframe> -->
@@ -279,7 +280,11 @@ function doModifyReply(replyId) {
 				</tr>
 				<tr>
 					<th style="text-align: center;">Body</th>
-					<td style="text-align: center;">${article.body}</td>
+					<td>
+						<div class="toast-ui-viewer">
+							<script type="text/x-template">${article.body}</script>
+						</div>
+					</td>
 				</tr>
 
 			</tbody>
