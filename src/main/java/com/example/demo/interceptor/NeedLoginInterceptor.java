@@ -9,10 +9,9 @@ import com.example.demo.vo.Rq;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-
 @Component
 public class NeedLoginInterceptor implements HandlerInterceptor {
-	
+
 	@Autowired
 	private Rq rq;
 
@@ -22,9 +21,10 @@ public class NeedLoginInterceptor implements HandlerInterceptor {
 
 		if (!rq.isLogined()) {
 			System.err.println("==================로그인 후 이용해주세요.====================");
-//			resp.getWriter().append("<script>~~~~");
-
-			rq.printHistoryBack("로그인 후 이용해주세요.");
+			
+			String afterLoginUri = rq.getEncodedCurrentUri();
+			
+			rq.printReplace("F-A", "로그인 후 이용해주세요", "../member/login?afterLoginUri=" + afterLoginUri);
 
 			return false;
 

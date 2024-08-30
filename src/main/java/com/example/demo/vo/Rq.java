@@ -105,4 +105,17 @@ public class Rq {
 
 		return currentUri;
 	}
+
+	public void printReplace(String resultCode, String msg, String replaceUri) {
+		
+		resp.setContentType("text/html; charset=UTF-8");
+		
+		print(Ut.jsReplace(resultCode, msg, replaceUri));
+		
+	}
+
+	public String getEncodedCurrentUri() {
+		
+		return Ut.getEncodedCurrentUri(getCurrentUri());
+	}
 }
