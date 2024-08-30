@@ -70,7 +70,7 @@
 			isAjax : 'Y',
 			loginId : form.loginId.value
 		}, function(data) {
-			$('.checkDup-msg').html('<div class="mt-2">' + data.msg + '</div>')
+			$('.checkDup-msg').html('<div class="">' + data.msg + '</div>')
 			if (data.success) {
 				validLoginId = data.data1;
 			} else {
@@ -78,7 +78,8 @@
 			}
 		}, 'json');
 	}
-	const checkLoginIdDupDebounced = _.debounce(checkLoginIdDup, 600);
+	//checkLoginIdDup(); // 매번 확인.
+	const checkLoginIdDupDebounced = _.debounce(checkLoginIdDup, 600);	// 시간을 두고 (600만큼) 확인
 </script>
 <section class="mt-24 text-xl px-4">
 	<div class="mx-auto">
