@@ -279,6 +279,15 @@ function doModifyReply(replyId) {
 					<td style="text-align: center;">${article.title}</td>
 				</tr>
 				<tr>
+					<th style="text-align: center;">Attached Image</th>
+					<td style="text-align: center;">
+						<div style="text-align: center;">
+							<img class="mx-auto rounded-xl" src="${rq.getImgUri(article.id)}" onerror="${rq.profileFallbackImgOnErrorHtml}" alt="" />
+						</div>
+						<div>${rq.getImgUri(article.id)}</div>
+					</td>
+				</tr>
+				<tr>
 					<th style="text-align: center;">Body</th>
 					<td>
 						<div class="toast-ui-viewer">

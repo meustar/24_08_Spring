@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.example.demo.vo.Member;
-import com.example.demo.vo.ResultData;
 
 @Mapper
 public interface MemberRepository {

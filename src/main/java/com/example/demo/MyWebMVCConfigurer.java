@@ -1,9 +1,11 @@
 package com.example.demo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.example.demo.interceptor.BeforeActionInterceptor;
@@ -12,6 +14,15 @@ import com.example.demo.interceptor.NeedLogoutInterceptor;
 
 @Configuration
 public class MyWebMVCConfigurer implements WebMvcConfigurer {
+	
+	@Value("${custom.genFileDirPath}")
+	private String genFileDirPath;
+
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/gen/**").addResourceLocations("file:///" + genFileDirPath + "/")
+				.setCachePeriod(20);
+	}
 	
 	// BeforeActionInterceptor 불러오기(연결)
 	@Autowired

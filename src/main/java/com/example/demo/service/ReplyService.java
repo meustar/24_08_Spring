@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.repository.ReplyRepository;
 import com.example.demo.util.Ut;
+import com.example.demo.vo.Article;
 import com.example.demo.vo.Reply;
 import com.example.demo.vo.ResultData;
 

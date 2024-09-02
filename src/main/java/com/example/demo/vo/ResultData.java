@@ -1,7 +1,17 @@
 package com.example.demo.vo;
 
-import lombok.Getter;
+import java.util.Map;
 
+import com.example.demo.util.Ut;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class ResultData<DT> {
 	@Getter
 	private String ResultCode;
@@ -15,6 +25,14 @@ public class ResultData<DT> {
 	private Object data2;
 	@Getter
 	private String data2Name;
+	
+	private Map<String, Object> body;
+
+	public ResultData(String ResultCode, String msg, Object... args) {
+		this.ResultCode = ResultCode;
+		this.msg = msg;
+		this.body = Ut.mapOf(args);
+	}
 
 	public static <DT> ResultData<DT> from(String ResultCode, String msg) {
 		return from(ResultCode, msg, null, null);

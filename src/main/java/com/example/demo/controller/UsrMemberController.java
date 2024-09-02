@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.service.MemberService;
 import com.example.demo.util.Ut;
+import com.example.demo.vo.Article;
 import com.example.demo.vo.Member;
 import com.example.demo.vo.ResultData;
 import com.example.demo.vo.Rq;
@@ -175,11 +176,22 @@ public class UsrMemberController {
 		
 
 		return Ut.jsReplace(modifyRd.getResultCode(), modifyRd.getMsg(), "../member/myPage");
-	
 	}
 
-	
+	@RequestMapping("/usr/member/getLoginIdDup")
+	@ResponseBody
+	public ResultData getLoginIdDup(String loginId) {
 
-	
+		if (Ut.isEmpty(loginId)) {
+			return ResultData.from("F-1", "아이디를 입력해주세요");
+		}
 
+		Member existsMember = memberService.getMemberByLoginId(loginId);
+
+		if (existsMember != null) {
+			return ResultData.from("F-2", "해당 아이디는 이미 사용중이야", "loginId", loginId);
+		}
+
+		return ResultData.from("S-1", "사용 가능!", "loginId", loginId);
+	}
 }
