@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,6 +42,21 @@ public class MemberService {
 		int id = memberRepository.getLastInsertId();
 
 		return ResultData.from("S-1", "회원가입 성공!", "생성된 회원 id", id);
+	}
+	
+	public int getMembersCount(String authLevel, String searchKeywordTypeCode, String searchKeyword) {
+		return memberRepository.getMembersCount(authLevel, searchKeywordTypeCode, searchKeyword);
+	}
+
+	public List<Member> getForPrintMembers(String authLevel, String searchKeywordTypeCode, String searchKeyword,
+			int itemsInAPage, int page) {
+
+		int limitStart = (page - 1) * itemsInAPage;
+		int limitTake = itemsInAPage;
+		List<Member> members = memberRepository.getForPrintMembers(authLevel, searchKeywordTypeCode, searchKeyword,
+				limitStart, limitTake);
+
+		return members;
 	}
 
 	public Member getMemberByNameAndEmail(String name, String email) {

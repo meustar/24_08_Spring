@@ -1,6 +1,7 @@
 package com.example.demo.vo;
 
 import java.io.IOException;
+import java.util.Map;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -19,6 +20,9 @@ import lombok.Getter;
 public class Rq {
 	
 	@Getter
+	boolean isAjax;
+	
+	@Getter
 	private boolean isLogined;
 	
 	@Getter
@@ -31,6 +35,8 @@ public class Rq {
 	private HttpServletResponse resp;
 
 	private HttpSession session;
+	
+	private Map<String, String> paramMap;
 
 	public Rq(HttpServletRequest req, HttpServletResponse resp, MemberService memberService) {
 		this.req = req;
@@ -38,6 +44,8 @@ public class Rq {
 		this.session = req.getSession();
 
 		HttpSession httpSession = req.getSession();
+		
+		paramMap = Ut.getParamMap(req);
 
 		if (httpSession.getAttribute("loginedMemberId") != null) {
 			isLogined = true;
@@ -45,6 +53,24 @@ public class Rq {
 			loginedMember = memberService.getMemberById(loginedMemberId);
 		}
 		this.req.setAttribute("rq", this);
+		
+		String requestUri = req.getRequestURI();
+
+		boolean isAjax = requestUri.endsWith("Ajax");
+
+		if (isAjax == false) {
+			if (paramMap.containsKey("ajax") && paramMap.get("ajax").equals("Y")) {
+				isAjax = true;
+			} else if (paramMap.containsKey("isAjax") && paramMap.get("isAjax").equals("Y")) {
+				isAjax = true;
+			}
+		}
+		if (isAjax == false) {
+			if (requestUri.contains("/get")) {
+				isAjax = true;
+			}
+		}
+		this.isAjax = isAjax;
 	}
 
 	public void printHistoryBack(String msg) throws IOException {
@@ -124,9 +150,13 @@ public class Rq {
 		return "../member/login?afterLoginUri=" + getAfterLoginUri();
 	}
 
-	private String getAfterLoginUri() {
+	public String getAfterLoginUri() {
 		
 		return getEncodedCurrentUri();
+	}
+	
+	public String jsReplace(String msg, String uri) {
+		return Ut.jsReplace(msg, uri);
 	}
 	
 	public String getImgUri(int id) {
@@ -155,5 +185,13 @@ public class Rq {
 
 	private String getAfterFindLoginPwUri() {
 		return getEncodedCurrentUri();
+	}
+	
+	public boolean isAdmin() {
+		if (isLogined == false) {
+			return false;
+		}
+
+		return loginedMember.isAdmin();
 	}
 }
