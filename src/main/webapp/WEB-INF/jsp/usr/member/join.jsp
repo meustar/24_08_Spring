@@ -18,9 +18,11 @@
 			form.loginId.focus();
 			return;
 		}
-		if (validLoginId == form.loginId.value) {
-			return;
+		
+// 		if (validLoginId == form.loginId.value) {
+// 			return;
 		}
+		
 		form.loginPw.value = form.loginPw.value.trim();
 		if (form.loginPw.value == 0) {
 			alert('비밀번호를 입력해주세요');
@@ -56,7 +58,7 @@
 			alert('전화번호를 입력해주세요');
 			return;
 		}
-		submitJoinFormDone = true;
+// 		submitJoinFormDone = true;
 		form.submit();
 	}
 	function checkLoginIdDup(el) {
@@ -140,7 +142,7 @@
 					<tr>
 						<th></th>
 						<td style="text-align: center;">
-							<button class="btn btn-primary">가입</button>
+							<button type="submit" class="btn btn-primary">가입</button>
 						</td>
 
 					</tr>
