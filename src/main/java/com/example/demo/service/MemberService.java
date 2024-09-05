@@ -90,4 +90,22 @@ public class MemberService {
 		return ResultData.from("S-1", "회원정보 수정 완료");
 	}
 
+	public void deleteMembers(List<Integer> memberIds) {
+		
+		for (int memberId : memberIds) {
+			
+			Member member = getMemberById(memberId);
+
+			if (member != null) {
+				
+				deleteMember(member);
+			}
+		}
+	}
+
+	private void deleteMember(Member member) {
+		
+		memberRepository.deleteMember(member.getId());
+	}
+
 }

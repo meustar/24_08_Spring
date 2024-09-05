@@ -155,4 +155,19 @@ public interface MemberRepository {
 	List<Member> getForPrintMembers(String authLevel, String searchKeywordTypeCode, String searchKeyword,
 			int limitStart, int limitTake);
 
+	
+	
+	@Select("""
+			<script>
+			UPDATE `member`
+			<set>
+				updateDate = NOW(),
+				delStatus = 1,
+				delDate = NOW(),
+			</set>
+			WHERE id = #{id}
+			</script>
+			""")
+	public void deleteMember(int id);
+
 }

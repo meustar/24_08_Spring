@@ -21,7 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 
 public class Ut {
-	
+
 	public static String jsReplace(String msg, String replaceUri) {
 
 		if (msg == null) {
@@ -33,6 +33,7 @@ public class Ut {
 
 		return Ut.f("""
 					<script>
+						let msg = '%s';
 						if(msg.length > 0){
 							alert(msg);
 						}
@@ -42,7 +43,7 @@ public class Ut {
 	}
 
 	public static String jsReplace(String resultCode, String msg, String replaceUri) {
-		
+
 		if (resultCode == null) {
 			resultCode = "";
 		}
@@ -67,7 +68,7 @@ public class Ut {
 	}
 
 	public static String jsHistoryBack(String resultCode, String msg) {
-		
+
 		if (resultCode == null) {
 			resultCode = "";
 		}
@@ -117,15 +118,15 @@ public class Ut {
 	}
 
 	public static String getEncodedCurrentUri(String currentUri) {
-		
+
 		try {
-			
+
 			return URLEncoder.encode(currentUri, "UTF-8");
-			
+
 		} catch (UnsupportedEncodingException e) {
-			
+
 			e.printStackTrace();
-			
+
 			return currentUri;
 		}
 	}
@@ -304,7 +305,7 @@ public class Ut {
 	public static <T> T reqAttr(HttpServletRequest req, String attrName, T defaultValue) {
 		return (T) ifNull(req.getAttribute(attrName), defaultValue);
 	}
-	
+
 	public static Map<String, String> getParamMap(HttpServletRequest req) {
 		Map<String, String> param = new HashMap<>();
 
@@ -319,25 +320,25 @@ public class Ut {
 
 		return param;
 	}
-	
+
 	// sha256
-		public static String sha256(String input) {
-			try {
-				MessageDigest md = MessageDigest.getInstance("SHA-256");
-				byte[] hash = md.digest(input.getBytes("UTF-8"));
-				StringBuffer hexString = new StringBuffer();
+	public static String sha256(String input) {
+		try {
+			MessageDigest md = MessageDigest.getInstance("SHA-256");
+			byte[] hash = md.digest(input.getBytes("UTF-8"));
+			StringBuffer hexString = new StringBuffer();
 
-				for (int i = 0; i < hash.length; i++) {
-					String hex = Integer.toHexString(0xff & hash[i]);
-					if (hex.length() == 1)
-						hexString.append('0');
-					hexString.append(hex);
-				}
-
-				return hexString.toString();
-			} catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
-				e.printStackTrace();
-				return null;
+			for (int i = 0; i < hash.length; i++) {
+				String hex = Integer.toHexString(0xff & hash[i]);
+				if (hex.length() == 1)
+					hexString.append('0');
+				hexString.append(hex);
 			}
+
+			return hexString.toString();
+		} catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+			e.printStackTrace();
+			return null;
 		}
+	}
 }
