@@ -337,6 +337,9 @@ CREATE TABLE genFile (
   KEY relId (relTypeCode,relId,typeCode,type2Code,fileNo)
 );
 
+# 기존의 회원 비번을 암호화
+UPDATE `member`
+SET loginPw = SHA2(loginPw,256);
 
 ###(INIT 끝)
 ##########################################
