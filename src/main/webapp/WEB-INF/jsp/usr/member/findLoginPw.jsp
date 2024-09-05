@@ -31,39 +31,39 @@
 	<div class="mx-auto">
 		<form action="../member/doFindLoginPw" method="POST" onsubmit="MemberFindLoginPw__submit(this);">
 			<input type="hidden" name="afterFindLoginPwUri" value="${param.afterFindLoginPwUri  }" />
-			<table class="login-box table-box-1" border="1">
+			<table class="table" border="1" cellspacing="0" cellpadding="5" style="width: 100%; border-collapse: collapse;">
 				<tbody>
 					<tr>
 						<th>아이디</th>
-						<td>
+						<td style="text-align: center;">
 							<input class="input input-bordered w-full max-w-xs" autocomplete="off" type="text" placeholder="아이디를 입력해주세요"
 								name="loginId" />
 						</td>
 					</tr>
 					<tr>
 						<th>이메일</th>
-						<td>
+						<td style="text-align: center;">
 							<input class="input input-bordered w-full max-w-xs" autocomplete="off" type="text" placeholder="이메일을 입력해주세요"
 								name="email" />
 						</td>
 					</tr>
 					<tr>
 						<th></th>
-						<td>
-							<button type="submit">비밀번호 찾기</button>
+						<td style="text-align: center;">
+							<button class="btn btn-success" type="submit">비밀번호 찾기</button>
 						</td>
 					</tr>
 					<tr>
 						<th></th>
-						<td>
-							<a class="btn btn-active btn-ghost" href="../member/login">로그인</a>
+						<td style="text-align: center;">
+							<a class="btn btn-active btn-primary" href="../member/login">로그인</a>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 		</form>
 		<div class="btns">
-			<button class="btn btn-outline" type="button" onclick="history.back();">뒤로가기</button>
+			<button class="btn" type="button" onclick="history.back();">뒤로가기</button>
 		</div>
 	</div>
 </section>

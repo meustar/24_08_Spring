@@ -58,7 +58,7 @@
 			</table>
 		</form>
 		<div class="btns">
-			<button class="btn btn-outline" type="button" onclick="history.back();">뒤로가기</button>
+			<button class="btn" type="button" onclick="history.back();">뒤로가기</button>
 		</div>
 	</div>
 </section>
